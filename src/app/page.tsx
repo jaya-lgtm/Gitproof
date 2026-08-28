@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
 import { RepositoryList } from "@/components/RepositoryList";
@@ -78,14 +79,20 @@ export default function Home() {
             </span>
           </div>
 
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
-          >
-            Powered by GitHub Data
-          </a>
+          <nav className="flex items-center gap-4 text-xs font-medium">
+            <Link
+              href="/"
+              className="text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
+            >
+              Single Analysis
+            </Link>
+            <Link
+              href="/compare"
+              className="text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              Compare Profiles
+            </Link>
+          </nav>
         </div>
       </header>
 
