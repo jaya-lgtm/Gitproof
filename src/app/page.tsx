@@ -5,7 +5,8 @@ import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
 import { RepositoryList } from "@/components/RepositoryList";
 import { ProofOfWorkCard } from "@/components/ProofOfWorkCard";
-import { GitHubUser, GitHubRepository } from "@/lib/github";
+import { DevelopmentEvidenceCard } from "@/components/DevelopmentEvidenceCard";
+import { GitHubUser, GitHubRepository, RawDevelopmentEvidence } from "@/lib/github";
 import { AnalysisResult } from "@/lib/analysis";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepository[]>([]);
+  const [evidences, setEvidences] = useState<RawDevelopmentEvidence[]>([]);
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
 
   const handleAnalyze = async (url: string) => {
@@ -34,16 +36,19 @@ export default function Home() {
         setError(data.error || "Failed to fetch GitHub profile.");
         setUser(null);
         setRepos([]);
+        setEvidences([]);
         setAnalysis(null);
       } else {
         setUser(data.user);
         setRepos(data.repos || []);
+        setEvidences(data.evidences || []);
         setAnalysis(data.analysis || null);
       }
     } catch {
       setError("An unexpected network error occurred. Please try again.");
       setUser(null);
       setRepos([]);
+      setEvidences([]);
       setAnalysis(null);
     } finally {
       setIsLoading(false);
@@ -94,6 +99,19 @@ export default function Home() {
           <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
             Convert real GitHub evidence into recruiter-friendly technical proof. Enter any public GitHub profile to get started.
           </p>
+
+          {/* Workflow Pipeline */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-slate-400">
+            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">GitHub Profile</span>
+            <span>→</span>
+            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Repositories</span>
+            <span>→</span>
+            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Recent Development Evidence</span>
+            <span>→</span>
+            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400">AI Interpretation</span>
+            <span>→</span>
+            <span className="px-2.5 py-1 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold">Recruiter Proof</span>
+          </div>
         </div>
 
         {/* Input Form */}
@@ -150,6 +168,29 @@ export default function Home() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {analysis.cards.map((card) => (
                     <ProofOfWorkCard key={card.id} card={card} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Verified Development Evidence Section */}
+            {evidences.length > 0 && (
+              <section className="space-y-6">
+                <div className="border-b border-slate-800 pb-4">
+                  <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+                    <span>Verified Development Evidence</span>
+                    <span className="px-2.5 py-0.5 rounded-full text-xs bg-sky-950 text-sky-400 border border-sky-800 font-mono">
+                      {evidences.length} Items
+                    </span>
+                  </h2>
+                  <p className="text-xs text-slate-400 mt-1">
+                    Actual commits, PRs, and issues translated into recruiter-friendly engineering accomplishments
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {evidences.map((ev) => (
+                    <DevelopmentEvidenceCard key={ev.id} evidence={ev} />
                   ))}
                 </div>
               </section>

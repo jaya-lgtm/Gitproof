@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { parseGitHubUsername } from "@/lib/parser";
 import { fetchGitHubUserData } from "@/lib/github";
 import { generateProofOfWork } from "@/lib/analysis";
+import { translateEvidenceToRecruiterProof } from "@/lib/translator";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,13 +35,19 @@ export async function POST(request: NextRequest) {
     }
 
     const repos = githubResult.repos || [];
-    const analysis = generateProofOfWork(githubResult.user, repos);
+    const rawEvidences = githubResult.evidences || [];
+
+    const [analysis, translatedEvidences] = await Promise.all([
+      generateProofOfWork(githubResult.user, repos),
+      translateEvidenceToRecruiterProof(rawEvidences),
+    ]);
 
     return NextResponse.json({
       success: true,
       username: parseResult.username,
       user: githubResult.user,
       repos,
+      evidences: translatedEvidences,
       analysis,
     });
   } catch (error: unknown) {
