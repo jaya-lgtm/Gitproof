@@ -5,7 +5,7 @@ import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
 import { RepositoryList } from "@/components/RepositoryList";
 import { ProofOfWorkCard } from "@/components/ProofOfWorkCard";
-import { DevelopmentEvidenceCard } from "@/components/DevelopmentEvidenceCard";
+import { DevelopmentEvidenceSection } from "@/components/DevelopmentEvidenceSection";
 import { GitHubUser, GitHubRepository, RawDevelopmentEvidence } from "@/lib/github";
 import { AnalysisResult } from "@/lib/analysis";
 
@@ -175,25 +175,7 @@ export default function Home() {
 
             {/* Verified Development Evidence Section */}
             {evidences.length > 0 && (
-              <section className="space-y-6">
-                <div className="border-b border-slate-800 pb-4">
-                  <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
-                    <span>Verified Development Evidence</span>
-                    <span className="px-2.5 py-0.5 rounded-full text-xs bg-sky-950 text-sky-400 border border-sky-800 font-mono">
-                      {evidences.length} Items
-                    </span>
-                  </h2>
-                  <p className="text-xs text-slate-400 mt-1">
-                    Actual commits, PRs, and issues translated into recruiter-friendly engineering accomplishments
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {evidences.map((ev) => (
-                    <DevelopmentEvidenceCard key={ev.id} evidence={ev} />
-                  ))}
-                </div>
-              </section>
+              <DevelopmentEvidenceSection evidences={evidences} />
             )}
 
             {/* Repositories */}
