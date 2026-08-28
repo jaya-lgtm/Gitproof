@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseGitHubUsername } from "@/lib/parser";
 import { fetchGitHubUserData } from "@/lib/github";
+import { generateProofOfWork } from "@/lib/analysis";
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     const githubResult = await fetchGitHubUserData(parseResult.username);
 
-    if (!githubResult.success) {
+    if (!githubResult.success || !githubResult.user) {
       const status = githubResult.isRateLimited ? 429 : 404;
       return NextResponse.json(
         { success: false, error: githubResult.error },
@@ -32,11 +33,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const repos = githubResult.repos || [];
+    const analysis = generateProofOfWork(githubResult.user, repos);
+
     return NextResponse.json({
       success: true,
       username: parseResult.username,
       user: githubResult.user,
-      repos: githubResult.repos,
+      repos,
+      analysis,
     });
   } catch (error: unknown) {
     const message =

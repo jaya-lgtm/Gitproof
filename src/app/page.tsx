@@ -4,13 +4,16 @@ import { useState } from "react";
 import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
 import { RepositoryList } from "@/components/RepositoryList";
+import { ProofOfWorkCard } from "@/components/ProofOfWorkCard";
 import { GitHubUser, GitHubRepository } from "@/lib/github";
+import { AnalysisResult } from "@/lib/analysis";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepository[]>([]);
+  const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
 
   const handleAnalyze = async (url: string) => {
     setIsLoading(true);
@@ -31,14 +34,17 @@ export default function Home() {
         setError(data.error || "Failed to fetch GitHub profile.");
         setUser(null);
         setRepos([]);
+        setAnalysis(null);
       } else {
         setUser(data.user);
         setRepos(data.repos || []);
+        setAnalysis(data.analysis || null);
       }
     } catch {
       setError("An unexpected network error occurred. Please try again.");
       setUser(null);
       setRepos([]);
+      setAnalysis(null);
     } finally {
       setIsLoading(false);
     }
@@ -103,8 +109,53 @@ export default function Home() {
 
         {/* Profile and Repositories View */}
         {user && (
-          <div className="space-y-10 animate-fade-in">
+          <div className="space-y-12 animate-fade-in">
+            {/* Profile Info */}
             <ProfileCard user={user} />
+
+            {/* Proof of Work Section */}
+            {analysis && analysis.cards.length > 0 && (
+              <section className="space-y-6">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                  <div>
+                    <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+                      <span>Verifiable Proof of Work</span>
+                      <span className="px-2.5 py-0.5 rounded-full text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                        {analysis.cards.length} Cards
+                      </span>
+                    </h2>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Technical claims backed 100% by public GitHub activity and repository metadata
+                    </p>
+                  </div>
+
+                  {/* Top languages overview pills */}
+                  {analysis.topLanguages.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {analysis.topLanguages.slice(0, 3).map((lang) => (
+                        <span
+                          key={lang.language}
+                          className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300"
+                        >
+                          <span className="text-emerald-400 font-semibold">
+                            {lang.language}
+                          </span>{" "}
+                          ({lang.percentage}%)
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {analysis.cards.map((card) => (
+                    <ProofOfWorkCard key={card.id} card={card} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Repositories */}
             <RepositoryList repos={repos} />
           </div>
         )}
