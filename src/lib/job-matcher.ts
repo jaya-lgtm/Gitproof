@@ -33,7 +33,7 @@ export interface JobMatchResult {
 }
 
 const COMMON_TECH_DICTIONARY = [
-  "TypeScript", "JavaScript", "Python", "Java", "C++", "C#", "Go", "Golang", "Rust", "PHP", "Ruby", "Swift", "Kotlin",
+  "TypeScript", "JavaScript", "Python", "Java", "C++", "C#", "C", "Go", "Golang", "Rust", "PHP", "Ruby", "Swift", "Kotlin",
   "React", "React Native", "Next.js", "Vue", "Nuxt", "Angular", "Svelte", "Node.js", "Express", "NestJS", "FastAPI", "Django", "Flask", "Spring Boot", ".NET", "ASP.NET", "Rails", "Laravel",
   "Tailwind CSS", "Tailwind", "CSS", "HTML", "Sass", "Bootstrap",
   "PostgreSQL", "Postgres", "MySQL", "MongoDB", "Redis", "SQLite", "DynamoDB", "Prisma", "TypeORM", "SQLAlchemy",
@@ -42,6 +42,10 @@ const COMMON_TECH_DICTIONARY = [
   "Jest", "Vitest", "Cypress", "Playwright", "PyTest",
   "JWT", "OAuth", "Zustand", "Redux", "Webpack", "Vite"
 ];
+
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 /**
  * Parses raw job description into structured technical requirements
@@ -54,8 +58,9 @@ export function parseJobDescription(jobDescriptionText: string): ExtractedJobReq
 
   COMMON_TECH_DICTIONARY.forEach((tech) => {
     const techLower = tech.toLowerCase();
-    // Regex word boundary match
-    const regex = new RegExp(`\\b${techLower.replace(".", "\\.")}\\b`, "i");
+    // Regex word boundary match safely escaping regex special characters (like C++)
+    const escaped = escapeRegExp(techLower);
+    const regex = new RegExp(`(?:^|\\s|\\b|[^a-zA-Z0-9])${escaped}(?:$|\\s|\\b|[^a-zA-Z0-9])`, "i");
     if (regex.test(lowerText)) {
       foundTechs.add(tech);
     }
@@ -64,7 +69,7 @@ export function parseJobDescription(jobDescriptionText: string): ExtractedJobReq
   const extractedList = Array.from(foundTechs);
 
   // Divide extracted list into languages, frameworks, technologies
-  const languagesList = ["TypeScript", "JavaScript", "Python", "Java", "C++", "C#", "Go", "Golang", "Rust", "PHP", "Ruby", "Swift", "Kotlin"];
+  const languagesList = ["TypeScript", "JavaScript", "Python", "Java", "C++", "C#", "C", "Go", "Golang", "Rust", "PHP", "Ruby", "Swift", "Kotlin"];
   const frameworksList = ["React", "React Native", "Next.js", "Vue", "Angular", "Svelte", "Node.js", "Express", "NestJS", "FastAPI", "Django", "Flask", "Spring Boot", ".NET", "Rails", "Laravel", "Tailwind CSS", "Tailwind"];
 
   const languages = extractedList.filter((t) => languagesList.includes(t));
@@ -127,7 +132,8 @@ export function rankRepositoriesForJob(
     let implMatchesCount = 0;
     deepData.keySourceSnippets.forEach((snippet) => {
       targetSkills.forEach((skill) => {
-        const regex = new RegExp(`\\b${skill.toLowerCase().replace(".", "\\.")}\\b`, "i");
+        const escaped = escapeRegExp(skill.toLowerCase());
+        const regex = new RegExp(`(?:^|\\s|\\b|[^a-zA-Z0-9])${escaped}(?:$|\\s|\\b|[^a-zA-Z0-9])`, "i");
         if (regex.test(snippet.contentSnippet.toLowerCase())) {
           implMatchesCount += 1;
           matchedSkillsSet.add(skill);
