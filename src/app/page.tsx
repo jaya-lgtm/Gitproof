@@ -92,6 +92,12 @@ export default function Home() {
             >
               Compare Profiles
             </Link>
+            <Link
+              href="/job-match"
+              className="text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              Job Match
+            </Link>
           </nav>
         </div>
       </header>

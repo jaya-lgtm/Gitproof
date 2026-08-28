@@ -1,0 +1,184 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { JobMatchForm } from "@/components/JobMatchForm";
+import { RankedProjectCard } from "@/components/RankedProjectCard";
+import { ProfileCard } from "@/components/ProfileCard";
+import { GitHubUser } from "@/lib/github";
+import { ExtractedJobRequirements, RankedProjectMatch } from "@/lib/job-matcher";
+
+export default function JobMatchPage() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<GitHubUser | null>(null);
+  const [jobRequirements, setJobRequirements] = useState<ExtractedJobRequirements | null>(null);
+  const [rankedProjects, setRankedProjects] = useState<RankedProjectMatch[]>([]);
+
+  const handleMatch = async (githubUrl: string, jobDescription: string) => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch("/api/job-match", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: githubUrl, jobDescription }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setError(data.error || "Failed to perform job match analysis.");
+        setUser(null);
+        setJobRequirements(null);
+        setRankedProjects([]);
+      } else {
+        setUser(data.user);
+        setJobRequirements(data.jobRequirements);
+        setRankedProjects(data.rankedProjects || []);
+      }
+    } catch {
+      setError("An unexpected network error occurred. Please try again.");
+      setUser(null);
+      setJobRequirements(null);
+      setRankedProjects([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
+      {/* Background Accent Gradients */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+      </div>
+
+      {/* Header */}
+      <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center font-black text-slate-950 text-base shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+                GP
+              </div>
+              <span className="font-bold text-lg tracking-tight text-slate-100 group-hover:text-emerald-400 transition-colors">
+                GitProof
+              </span>
+            </Link>
+            <span className="px-2 py-0.5 text-[10px] uppercase font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60 rounded-full">
+              Job Match Mode
+            </span>
+          </div>
+
+          <nav className="flex items-center gap-4 text-xs font-medium">
+            <Link
+              href="/"
+              className="text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              Single Analysis
+            </Link>
+            <Link
+              href="/compare"
+              className="text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              Compare Profiles
+            </Link>
+            <Link
+              href="/job-match"
+              className="text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
+            >
+              Job Match
+            </Link>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero & Content */}
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
+        <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
+            Job Match & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Project Relevance Ranking</span>
+          </h1>
+          <p className="text-slate-400 text-sm leading-relaxed">
+            Match a candidate&apos;s actual repository source code, manifests, and documentation against target job description requirements.
+          </p>
+        </div>
+
+        {/* Input Form */}
+        <JobMatchForm onMatch={handleMatch} isLoading={isLoading} />
+
+        {/* Error Banner */}
+        {error && (
+          <div className="max-w-2xl mx-auto bg-rose-950/50 border border-rose-800/80 rounded-xl p-4 text-center text-rose-300 text-sm flex items-center justify-center gap-2 shadow-lg">
+            <svg className="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span>{error}</span>
+          </div>
+        )}
+
+        {/* Results View */}
+        {user && jobRequirements && (
+          <div className="space-y-10 animate-fade-in">
+            {/* User Profile */}
+            <ProfileCard user={user} />
+
+            {/* Extracted Job Requirements Breakdown */}
+            <section className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+              <h2 className="text-xl font-bold text-slate-100 pb-3 border-b border-slate-800 flex items-center justify-between">
+                <span>Extracted Job Requirements</span>
+                <span className="text-xs font-mono text-emerald-400">
+                  {jobRequirements.keywords.length} Target Skills Identified
+                </span>
+              </h2>
+
+              <div className="flex flex-wrap gap-2">
+                {jobRequirements.keywords.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono font-semibold text-emerald-400"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            {/* Ranked Projects Section */}
+            <section className="space-y-6">
+              <div className="border-b border-slate-800 pb-4">
+                <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+                  <span>Ranked Relevant Repositories</span>
+                  <span className="px-2.5 py-0.5 rounded-full text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                    {rankedProjects.length} Projects Analyzed
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400 mt-1">
+                  Ranked by implementation code evidence (35%), manifests (25%), language (20%), README (15%), and activity (5%)
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {rankedProjects.map((match, idx) => (
+                  <RankedProjectCard
+                    key={match.repository.id}
+                    match={match}
+                    rank={idx + 1}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+        GitProof &copy; {new Date().getFullYear()} — Job Match & Deep Code Analysis
+      </footer>
+    </main>
+  );
+}
