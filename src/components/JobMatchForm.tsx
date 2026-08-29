@@ -41,8 +41,8 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
     <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto space-y-6">
       <div className="space-y-4">
         {/* GitHub Profile URL */}
-        <div className="p-3 rounded-2xl glass-card">
-          <label className="block text-xs font-semibold uppercase text-blue-400 px-1 mb-1 font-mono">
+        <div className="p-3 rounded-2xl card-surface">
+          <label className="block text-xs font-bold uppercase text-[#38BDF8] px-1 mb-1 font-mono">
             GitHub Profile URL or Username
           </label>
           <input
@@ -50,25 +50,25 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
             value={githubUrl}
             onChange={(e) => setGithubUrl(e.target.value)}
             placeholder="e.g. https://github.com/octocat or @octocat"
-            className="w-full bg-transparent px-2 py-1 text-slate-100 placeholder-slate-500 text-sm focus:outline-none"
+            className="w-full bg-transparent px-2 py-1 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none font-sans"
             disabled={isLoading}
           />
         </div>
 
         {/* Job Description Textarea */}
-        <div className="p-4 rounded-2xl glass-card space-y-2">
+        <div className="p-4 rounded-2xl card-surface space-y-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <label className="block text-xs font-semibold uppercase text-blue-400 font-mono">
+            <label className="block text-xs font-bold uppercase text-[#38BDF8] font-mono">
               Paste Job Description (JD)
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-slate-400 font-mono">Quick Samples:</span>
+              <span className="text-[11px] text-zinc-400 font-mono">Quick Samples:</span>
               {SAMPLE_JOB_DESCRIPTIONS.map((sample, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setJobDescription(sample.text)}
-                  className="text-[11px] px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-colors cursor-pointer"
+                  className="text-[11px] px-2 py-0.5 rounded bg-[#0D1017] hover:bg-[#161B26] text-zinc-300 border border-[#1F2432] transition-colors cursor-pointer"
                 >
                   {sample.title}
                 </button>
@@ -81,7 +81,7 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
             onChange={(e) => setJobDescription(e.target.value)}
             rows={6}
             placeholder="Paste the job requirements, tech stack, and responsibilities here..."
-            className="w-full bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500/50 resize-y font-sans leading-relaxed"
+            className="w-full bg-[#0D1017] p-3 rounded-xl border border-[#1F2432] text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-[#C8FF4A]/50 resize-y font-sans leading-relaxed"
             disabled={isLoading}
           />
         </div>
@@ -91,12 +91,12 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
         <button
           type="submit"
           disabled={isLoading || !githubUrl.trim() || !jobDescription.trim()}
-          className="px-8 py-3.5 rounded-xl btn-primary text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-2"
+          className="px-8 py-3.5 rounded-xl btn-lime text-xs font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-2"
         >
           {isLoading ? (
             <>
               <svg
-                className="animate-spin h-4 w-4 text-white"
+                className="animate-spin h-4 w-4 text-[#080A0F]"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

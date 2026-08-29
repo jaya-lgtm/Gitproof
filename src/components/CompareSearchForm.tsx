@@ -22,8 +22,8 @@ export function CompareSearchForm({ onCompare, isLoading }: CompareSearchFormPro
     <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Profile 1 Input */}
-        <div className="p-3 rounded-2xl glass-card">
-          <label className="block text-xs font-semibold uppercase text-blue-400 px-1 mb-1 font-mono">
+        <div className="p-3 rounded-2xl card-surface">
+          <label className="block text-xs font-bold uppercase text-[#38BDF8] px-1 mb-1 font-mono">
             Developer Profile #1
           </label>
           <input
@@ -31,14 +31,14 @@ export function CompareSearchForm({ onCompare, isLoading }: CompareSearchFormPro
             value={url1}
             onChange={(e) => setUrl1(e.target.value)}
             placeholder="e.g. github.com/octocat or @octocat"
-            className="w-full bg-transparent px-2 py-1 text-slate-100 placeholder-slate-500 text-sm focus:outline-none"
+            className="w-full bg-transparent px-2 py-1 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none"
             disabled={isLoading}
           />
         </div>
 
         {/* Profile 2 Input */}
-        <div className="p-3 rounded-2xl glass-card">
-          <label className="block text-xs font-semibold uppercase text-violet-400 px-1 mb-1 font-mono">
+        <div className="p-3 rounded-2xl card-surface">
+          <label className="block text-xs font-bold uppercase text-[#A78BFA] px-1 mb-1 font-mono">
             Developer Profile #2
           </label>
           <input
@@ -46,7 +46,7 @@ export function CompareSearchForm({ onCompare, isLoading }: CompareSearchFormPro
             value={url2}
             onChange={(e) => setUrl2(e.target.value)}
             placeholder="e.g. github.com/torvalds or @torvalds"
-            className="w-full bg-transparent px-2 py-1 text-slate-100 placeholder-slate-500 text-sm focus:outline-none"
+            className="w-full bg-transparent px-2 py-1 text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none"
             disabled={isLoading}
           />
         </div>
@@ -56,12 +56,12 @@ export function CompareSearchForm({ onCompare, isLoading }: CompareSearchFormPro
         <button
           type="submit"
           disabled={isLoading || !url1.trim() || !url2.trim()}
-          className="px-8 py-3.5 rounded-xl btn-primary text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-2"
+          className="px-8 py-3.5 rounded-xl btn-lime text-xs font-bold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-2"
         >
           {isLoading ? (
             <>
               <svg
-                className="animate-spin h-4 w-4 text-white"
+                className="animate-spin h-4 w-4 text-[#080A0F]"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

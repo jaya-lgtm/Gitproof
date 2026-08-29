@@ -22,47 +22,47 @@ export function Header() {
   ];
 
   return (
-    <header className="border-b border-slate-800/80 bg-[#020617]/85 backdrop-blur-2xl sticky top-0 z-50 transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+    <header className="border-b border-[#1F2432] bg-[#080A0F]/90 backdrop-blur-md sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
         {/* Brand & Logo */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center font-black text-white text-base shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#C8FF4A] flex items-center justify-center font-black text-[#080A0F] text-sm shadow-md shadow-[#C8FF4A]/10 group-hover:scale-105 transition-transform">
               GP
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-lg tracking-tight text-slate-100 group-hover:text-blue-400 transition-colors">
+                <span className="font-extrabold text-base tracking-tight text-zinc-100 group-hover:text-[#C8FF4A] transition-colors">
                   GitProof
                 </span>
-                <span className="px-2 py-0.5 text-[9px] uppercase tracking-wider font-semibold bg-blue-950/80 text-blue-400 border border-blue-800/60 rounded-full font-mono">
-                  Verified
+                <span className="text-[9px] uppercase tracking-wider font-mono font-bold text-[#C8FF4A] bg-[#C8FF4A]/10 px-1.5 py-0.5 rounded border border-[#C8FF4A]/20">
+                  AI DEVELOPER INTELLIGENCE
                 </span>
               </div>
-              <span className="text-[10px] text-slate-500 hidden lg:inline-block tracking-tight font-sans">
-                Turn GitHub activity into verifiable proof of work
-              </span>
             </div>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/60 border border-slate-800/80">
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 flex items-center gap-1.5 ${
+                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-150 flex items-center gap-1.5 relative ${
                   isActive
-                    ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold shadow-sm shadow-blue-500/10"
-                    : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/50"
+                    ? "bg-[#11151F] text-[#C8FF4A] border border-[#C8FF4A]/30 shadow-sm"
+                    : "text-zinc-400 hover:text-zinc-100 hover:bg-[#11151F]/60 border border-transparent"
                 }`}
               >
+                {isActive && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8FF4A]"></span>
+                )}
                 <span>{item.label}</span>
                 {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-950 text-blue-400 border border-blue-800 font-mono">
+                  <span className="px-1.5 py-0.2 rounded text-[10px] bg-[#C8FF4A]/15 text-[#C8FF4A] border border-[#C8FF4A]/30 font-mono">
                     {item.badgeCount}
                   </span>
                 )}
@@ -71,23 +71,23 @@ export function Header() {
           })}
         </nav>
 
-        {/* User Auth Badge / Login Button (Desktop) */}
+        {/* User Auth Controls (Desktop) */}
         <div className="hidden md:flex items-center gap-3">
           {isAuthenticated && user ? (
-            <div className="flex items-center gap-3 pl-3 pr-2 py-1 rounded-xl bg-slate-900/80 border border-slate-800/90 shadow-sm">
+            <div className="flex items-center gap-3 pl-3 pr-2 py-1 rounded-lg bg-[#0D1017] border border-[#1F2432]">
               <div className="flex items-center gap-2">
                 <img
                   src={user.avatar_url}
                   alt={user.login}
-                  className="w-7 h-7 rounded-lg border border-blue-500/40 object-cover"
+                  className="w-6 h-6 rounded border border-[#C8FF4A]/40 object-cover"
                 />
-                <span className="text-xs font-semibold text-slate-200 font-mono">
+                <span className="text-xs font-semibold text-zinc-200 font-mono">
                   @{user.login}
                 </span>
               </div>
               <button
                 onClick={logout}
-                className="text-xs text-slate-400 hover:text-rose-400 transition-colors cursor-pointer font-mono pl-2 border-l border-slate-800"
+                className="text-xs text-zinc-400 hover:text-rose-400 transition-colors cursor-pointer font-mono pl-2 border-l border-[#1F2432]"
                 title="Sign Out"
               >
                 Sign Out
@@ -96,7 +96,7 @@ export function Header() {
           ) : (
             <Link
               href="/login"
-              className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-md shadow-blue-500/20 transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg btn-lime text-xs font-bold transition-all cursor-pointer"
             >
               Sign In
             </Link>
@@ -106,7 +106,7 @@ export function Header() {
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-slate-100 transition-colors cursor-pointer"
+          className="md:hidden p-2 rounded-lg bg-[#0D1017] border border-[#1F2432] text-zinc-300 hover:text-zinc-100 transition-colors cursor-pointer"
           aria-label="Toggle Navigation Menu"
         >
           {mobileMenuOpen ? (
@@ -119,8 +119,8 @@ export function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-800 bg-[#020617] px-4 py-4 space-y-3 animate-fade-in shadow-2xl">
-          <nav className="flex flex-col gap-1.5">
+        <div className="md:hidden border-t border-[#1F2432] bg-[#080A0F] px-4 py-3 space-y-3 shadow-2xl">
+          <nav className="flex flex-col gap-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -128,15 +128,18 @@ export function Header() {
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-medium transition-all flex items-center justify-between ${
+                  className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center justify-between ${
                     isActive
-                      ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold"
-                      : "text-slate-400 hover:text-slate-100 hover:bg-slate-900/60"
+                      ? "bg-[#11151F] text-[#C8FF4A] border border-[#C8FF4A]/30"
+                      : "text-zinc-400 hover:text-zinc-100 hover:bg-[#0D1017]"
                   }`}
                 >
-                  <span>{item.label}</span>
+                  <span className="flex items-center gap-2">
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#C8FF4A]"></span>}
+                    <span>{item.label}</span>
+                  </span>
                   {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] bg-blue-950 text-blue-400 border border-blue-800 font-mono">
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-[#C8FF4A]/15 text-[#C8FF4A] font-mono">
                       {item.badgeCount}
                     </span>
                   )}
@@ -145,16 +148,16 @@ export function Header() {
             })}
           </nav>
 
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+          <div className="pt-2 border-t border-[#1F2432]">
             {isAuthenticated && user ? (
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
                   <img
                     src={user.avatar_url}
                     alt={user.login}
-                    className="w-8 h-8 rounded-lg border border-blue-500/40 object-cover"
+                    className="w-7 h-7 rounded border border-[#C8FF4A]/40 object-cover"
                   />
-                  <span className="text-xs font-semibold text-slate-200 font-mono">
+                  <span className="text-xs font-semibold text-zinc-200 font-mono">
                     @{user.login}
                   </span>
                 </div>
@@ -172,7 +175,7 @@ export function Header() {
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold text-center block shadow-md"
+                className="w-full py-2 rounded-lg btn-lime text-xs font-bold text-center block"
               >
                 Sign In
               </Link>

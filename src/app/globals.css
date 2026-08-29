@@ -1,74 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
-  --card-bg: #0f172a;
-  --card-border: #1e293b;
-  --accent-blue: #3b82f6;
-  --accent-violet: #8b5cf6;
-  --accent-emerald: #10b981;
+  --base-bg: #080a0f;
+  --secondary-bg: #0d1017;
+  --card-bg: #11151f;
+  --elevated-bg: #161b26;
+  --border-subtle: #1f2432;
+  --border-bright: #2d3548;
+  
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  
+  --accent-lime: #c8ff4a;
+  --accent-purple: #8b5cf6;
+  --accent-sky: #38bdf8;
+  --accent-emerald: #34d399;
+  --accent-warning: #fbbf24;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--base-bg);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 }
 
 body {
-  background-color: #020617;
-  color: #f8fafc;
+  background-color: #080a0f;
+  color: #f4f4f5;
   font-family: var(--font-sans);
   overflow-x: hidden;
+  background-image: 
+    linear-gradient(to right, rgba(31, 36, 50, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 36, 50, 0.2) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Glassmorphism Card Utility */
-.glass-card {
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(30, 41, 59, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(2, 6, 23, 0.5);
+/* Dark Solid Card Surfaces */
+.card-surface {
+  background-color: #11151f;
+  border: 1px solid #1f2432;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card-hover:hover {
-  border-color: rgba(59, 130, 246, 0.4);
-  box-shadow: 0 12px 35px -10px rgba(59, 130, 246, 0.15);
-  transform: translateY(-2px);
-}
-
-/* Primary Button Styling */
-.btn-primary {
-  background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
-  color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 4px 20px -2px rgba(37, 99, 235, 0.35);
-  transition: all 0.2s ease;
-}
-
-.btn-primary:hover:not(:disabled) {
-  background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 100%);
-  box-shadow: 0 6px 24px -2px rgba(37, 99, 235, 0.5);
+.card-surface-hover:hover {
+  border-color: #2d3548;
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.7);
   transform: translateY(-1px);
 }
 
-/* Input Styling */
-.input-field {
-  background: rgba(2, 6, 23, 0.7);
-  border: 1px solid rgba(30, 41, 59, 0.9);
-  color: #f8fafc;
+/* Electric Lime Brand Button */
+.btn-lime {
+  background-color: #c8ff4a;
+  color: #080a0f;
+  font-weight: 700;
+  box-shadow: 0 4px 20px -2px rgba(200, 255, 74, 0.25);
   transition: all 0.2s ease;
 }
 
-.input-field:focus {
+.btn-lime:hover:not(:disabled) {
+  background-color: #b8f238;
+  box-shadow: 0 6px 24px -2px rgba(200, 255, 74, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: #161b26;
+  border: 1px solid #1f2432;
+  color: #f4f4f5;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #1f2432;
+  border-color: #2d3548;
+}
+
+/* Input Fields */
+.input-dark {
+  background-color: #0d1017;
+  border: 1px solid #1f2432;
+  color: #f4f4f5;
+  transition: all 0.2s ease;
+}
+
+.input-dark:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  border-color: #c8ff4a;
+  box-shadow: 0 0 0 2px rgba(200, 255, 74, 0.15);
+}
+
+/* Badges */
+.badge-lime {
+  background-color: rgba(200, 255, 74, 0.1);
+  color: #c8ff4a;
+  border: 1px solid rgba(200, 255, 74, 0.25);
+}
+
+.badge-purple {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.badge-sky {
+  background-color: rgba(56, 189, 248, 0.1);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+}
+
+.badge-emerald {
+  background-color: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.25);
 }
 
 /* Custom Scrollbar */
@@ -78,14 +126,14 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #080a0f;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1f2432;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #2d3548;
 }

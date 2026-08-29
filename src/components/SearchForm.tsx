@@ -18,13 +18,18 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="relative p-2.5 rounded-2xl glass-card border border-slate-800/90 shadow-2xl transition-all focus-within:border-blue-500/50 focus-within:ring-4 focus-within:ring-blue-500/10">
-        <div className="flex flex-col sm:flex-row items-center gap-3">
-          {/* GitHub Icon & Input */}
+    <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto space-y-2">
+      <div className="text-[10px] font-mono font-bold tracking-wider text-[#38BDF8] uppercase flex items-center justify-between px-1">
+        <span>ANALYZE DEVELOPER PROFILE</span>
+        <span className="text-zinc-500 font-sans font-normal text-[10px]">Command Console</span>
+      </div>
+
+      <div className="relative p-2 rounded-xl bg-[#11151F] border border-[#1F2432] shadow-2xl transition-all focus-within:border-[#C8FF4A]/80 focus-within:ring-1 focus-within:ring-[#C8FF4A]/20">
+        <div className="flex flex-col sm:flex-row items-center gap-2">
+          {/* Input Field */}
           <div className="flex items-center gap-3 flex-1 w-full pl-3 pr-2 py-1">
             <svg
-              className="w-5 h-5 text-slate-400 shrink-0"
+              className="w-4 h-4 text-zinc-400 shrink-0"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -38,8 +43,8 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
               type="text"
               value={inputUrl}
               onChange={(e) => setInputUrl(e.target.value)}
-              placeholder="Enter GitHub URL, @username, or username..."
-              className="w-full bg-transparent text-slate-100 placeholder-slate-500 text-sm sm:text-base focus:outline-none font-sans"
+              placeholder="Paste GitHub URL or @username"
+              className="w-full bg-transparent text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none font-mono"
               disabled={isLoading}
             />
           </div>
@@ -48,12 +53,12 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
           <button
             type="submit"
             disabled={isLoading || !inputUrl.trim()}
-            className="w-full sm:w-auto px-7 py-3 rounded-xl btn-primary text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 shrink-0 shadow-lg shadow-blue-500/20"
+            className="w-full sm:w-auto px-6 py-2.5 rounded-lg btn-lime text-xs font-extrabold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 shrink-0 font-sans tracking-wide uppercase"
           >
             {isLoading ? (
               <>
                 <svg
-                  className="animate-spin h-4 w-4 text-white"
+                  className="animate-spin h-3.5 w-3.5 text-[#080A0F]"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -75,14 +80,11 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
                 <span>Analyzing Evidence...</span>
               </>
             ) : (
-              <span>Analyze Profile</span>
+              <span>Run Analysis</span>
             )}
           </button>
         </div>
       </div>
-      <p className="mt-2 text-center text-xs text-slate-500 font-mono">
-        Supports full URL (github.com/username), handle (@username), or plain handle (username)
-      </p>
     </form>
   );
 }

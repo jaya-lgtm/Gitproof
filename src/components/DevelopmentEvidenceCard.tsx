@@ -12,25 +12,19 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
 
   const typeBadges: Record<
     RawDevelopmentEvidence["type"],
-    { label: string; bg: string; text: string; border: string }
+    { label: string; badgeClass: string }
   > = {
     "Pull Request": {
       label: "Pull Request",
-      bg: "bg-emerald-950/80",
-      text: "text-emerald-400",
-      border: "border-emerald-800/80",
+      badgeClass: "badge-emerald font-mono",
     },
     Issue: {
       label: "Issue",
-      bg: "bg-violet-950/80",
-      text: "text-violet-400",
-      border: "border-violet-800/80",
+      badgeClass: "badge-purple font-mono",
     },
     Commit: {
       label: "Commit",
-      bg: "bg-blue-950/80",
-      text: "text-blue-400",
-      border: "border-blue-800/80",
+      badgeClass: "badge-sky font-mono",
     },
   };
 
@@ -42,13 +36,13 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
   });
 
   return (
-    <div className="glass-card glass-card-hover rounded-2xl p-6 flex flex-col justify-between">
+    <div className="card-surface card-surface-hover rounded-2xl p-6 flex flex-col justify-between">
       <div className="space-y-4">
         {/* Top bar: Type badge, Repo, Status, Date */}
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span
-              className={`px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badge.bg} ${badge.text} ${badge.border}`}
+              className={`px-2.5 py-0.5 rounded text-xs font-semibold ${badge.badgeClass}`}
             >
               {badge.label}
             </span>
@@ -56,15 +50,15 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
               href={evidence.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-400 hover:text-blue-400 transition-colors"
+              className="text-xs font-mono text-zinc-400 hover:text-[#38BDF8] transition-colors"
             >
               {evidence.repoName}
             </a>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
+          <div className="flex items-center gap-2 text-xs text-zinc-400 font-mono">
             {evidence.status && (
-              <span className="capitalize px-2 py-0.5 rounded bg-slate-900 text-slate-300 font-mono text-[10px] border border-slate-800">
+              <span className="capitalize px-2 py-0.5 rounded bg-[#0D1017] text-zinc-300 font-mono text-[10px] border border-[#1F2432]">
                 {evidence.status}
               </span>
             )}
@@ -72,18 +66,18 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
           </div>
         </div>
 
-        {/* Recruiter-Friendly Interpretation */}
-        <div className="p-4 bg-slate-950/90 rounded-xl border border-blue-500/20 space-y-1">
+        {/* AI Recruiter-Friendly Interpretation */}
+        <div className="p-4 bg-[#0D1017] rounded-xl border border-[#8B5CF6]/30 space-y-1">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 text-[10px] font-semibold text-blue-400 uppercase tracking-wider font-mono">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#A78BFA] uppercase tracking-wider font-mono">
+              <svg className="w-3.5 h-3.5 text-[#8B5CF6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
-              Recruiter-Friendly Interpretation
+              <span>AI Recruiter Interpretation</span>
             </div>
-            <span className="text-[10px] text-emerald-400 font-mono">✓ Verified</span>
+            <span className="text-[10px] text-[#34D399] font-mono">✓ Grounded</span>
           </div>
-          <p className="text-sm font-medium text-slate-100 leading-relaxed">
+          <p className="text-sm font-medium text-zinc-100 leading-relaxed">
             {evidence.recruiterTranslation}
           </p>
         </div>
@@ -92,10 +86,10 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
         <div className="pt-1">
           <button
             onClick={() => setShowRawEvidence(!showRawEvidence)}
-            className="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-slate-400 hover:text-slate-200 bg-slate-950/60 hover:bg-slate-950 border border-slate-800/80 rounded-lg transition-all cursor-pointer"
+            className="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-200 bg-[#0D1017] border border-[#1F2432] rounded-lg transition-all cursor-pointer"
           >
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
               </svg>
               {showRawEvidence ? "Hide Raw GitHub Evidence" : "Show Raw GitHub Evidence"}
@@ -113,29 +107,29 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
           </button>
 
           {showRawEvidence && (
-            <div className="mt-2.5 p-3.5 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2 text-xs animate-fade-in font-mono">
+            <div className="mt-2.5 p-3.5 bg-[#0D1017] rounded-xl border border-[#1F2432] space-y-2 text-xs font-mono">
               <div>
-                <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block">
+                <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-wider block">
                   Raw Title / Commit Message
                 </span>
-                <p className="text-slate-200 bg-slate-900 p-2 rounded border border-slate-800 break-words mt-1">
+                <p className="text-zinc-200 bg-[#161B26] p-2 rounded border border-[#1F2432] break-words mt-1">
                   {evidence.title}
                 </p>
               </div>
 
               {evidence.description && (
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block font-sans">
+                  <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-wider block font-sans">
                     Description Snippet
                   </span>
-                  <p className="text-slate-300 italic bg-slate-900/50 p-2 rounded mt-1 line-clamp-3 font-sans">
+                  <p className="text-zinc-300 italic bg-[#161B26] p-2 rounded mt-1 line-clamp-3 font-sans">
                     &quot;{evidence.description}&quot;
                   </p>
                 </div>
               )}
 
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] text-slate-400 border-t border-slate-800/60">
-                <span>Repository: <code className="text-slate-300">{evidence.repoName}</code></span>
+              <div className="flex flex-wrap items-center justify-between gap-2 pt-2 text-[11px] text-zinc-400 border-t border-[#1F2432]">
+                <span>Repository: <code className="text-zinc-300">{evidence.repoName}</code></span>
                 <span>Date: {createdDate}</span>
               </div>
             </div>
@@ -144,12 +138,12 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
       </div>
 
       {/* Direct GitHub Verification Link */}
-      <div className="mt-5 pt-3 border-t border-slate-800/80 flex justify-end">
+      <div className="mt-5 pt-3 border-t border-[#1F2432] flex justify-end">
         <a
           href={evidence.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-semibold transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-[#38BDF8] hover:underline font-mono font-semibold transition-colors"
         >
           <span>Verify on GitHub</span>
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
