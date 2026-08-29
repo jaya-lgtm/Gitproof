@@ -12,58 +12,83 @@ export function RankedProjectCard({ match, rank }: RankedProjectCardProps) {
   const [showEvidence, setShowEvidence] = useState(false);
   const repo = match.repository;
 
-  const scoreColor =
-    match.matchScore >= 70
-      ? "text-[#C8FF4A] bg-[#C8FF4A]/10 border-[#C8FF4A]/30"
-      : match.matchScore >= 40
-      ? "text-[#38BDF8] bg-[#38BDF8]/10 border-[#38BDF8]/30"
-      : "text-zinc-400 bg-[#0D1017] border-[#1F2432]";
+  // Refined Match Score Color System
+  const isHighMatch = match.matchScore >= 70;
+  const isMediumMatch = match.matchScore >= 40;
+
+  const scoreBadgeStyle = isHighMatch
+    ? "badge-lime"
+    : isMediumMatch
+    ? "badge-sky"
+    : "bg-[#0D1017] text-zinc-400 border border-[#1F2432]";
+
+  const scoreProgressStyle = isHighMatch
+    ? "bg-[#C8FF4A]"
+    : isMediumMatch
+    ? "bg-[#38BDF8]"
+    : "bg-zinc-600";
+
+  const formattedRank = `#${rank < 10 ? `0${rank}` : rank}`;
 
   return (
-    <div className="card-surface card-surface-hover rounded-2xl p-6 space-y-4">
-      {/* Header: Rank, Repo Name, Match Score Badge */}
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex items-center gap-3">
-          <span className="w-7 h-7 rounded-lg bg-[#0D1017] border border-[#1F2432] text-zinc-300 font-mono text-xs font-bold flex items-center justify-center shrink-0">
-            #{rank}
-          </span>
-          <div>
-            <a
-              href={repo.html_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-lg font-bold text-zinc-100 hover:text-[#C8FF4A] transition-colors inline-flex items-center gap-1.5 font-mono"
-            >
-              <span>{repo.name}</span>
-              <svg className="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-            </a>
-            {repo.description && (
-              <p className="text-xs text-zinc-400 mt-1 line-clamp-2 font-sans">
-                {repo.description}
-              </p>
-            )}
+    <div className="card-surface card-surface-hover rounded-2xl p-6 space-y-4 relative overflow-hidden">
+      {/* Top Bar: Rank, Repo Name, Score Badge & Progress Bar */}
+      <div className="space-y-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <span className="w-8 h-8 rounded-lg bg-[#0D1017] border border-[#1F2432] text-[#C8FF4A] font-mono text-xs font-bold flex items-center justify-center shrink-0">
+              {formattedRank}
+            </span>
+            <div>
+              <a
+                href={repo.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg font-extrabold text-zinc-100 hover:text-[#C8FF4A] transition-colors inline-flex items-center gap-1.5 font-mono"
+              >
+                <span>{repo.name}</span>
+                <svg className="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+              </a>
+              {repo.description && (
+                <p className="text-xs text-zinc-400 mt-0.5 line-clamp-2 font-sans">
+                  {repo.description}
+                </p>
+              )}
+            </div>
+          </div>
+
+          {/* Match Score Indicator */}
+          <div className={`px-3 py-1.5 rounded-xl text-sm font-extrabold font-mono flex items-center gap-1.5 ${scoreBadgeStyle}`}>
+            <span>{match.matchScore}%</span>
+            <span className="text-[10px] font-normal uppercase tracking-wider font-sans">MATCH</span>
           </div>
         </div>
 
-        {/* Match Score Badge */}
-        <div className={`px-3 py-1.5 rounded-xl border text-sm font-extrabold font-mono flex items-center gap-1.5 ${scoreColor}`}>
-          <span>{match.matchScore}%</span>
-          <span className="text-[10px] font-normal uppercase tracking-wider font-sans">Match</span>
+        {/* Technical Score Progress Bar */}
+        <div className="w-full h-1.5 bg-[#0D1017] rounded-full overflow-hidden border border-[#1F2432]">
+          <div
+            className={`h-full transition-all duration-500 ${scoreProgressStyle}`}
+            style={{ width: `${match.matchScore}%` }}
+          ></div>
         </div>
       </div>
 
-      {/* Match Reason */}
-      <div className="p-3 bg-[#0D1017] rounded-xl border border-[#1F2432] text-xs text-zinc-300 leading-relaxed font-sans">
-        <span className="font-semibold text-[#38BDF8]">Match Analysis: </span>
-        {match.matchReason}
+      {/* WHY IT MATCHED (AI Interpretation) */}
+      <div className="p-3 bg.bg-purple bg-[#0D1017] rounded-xl border border-[#8B5CF6]/30 space-y-1">
+        <span className="text-[10px] font-bold text-[#A78BFA] uppercase tracking-wider font-mono block">
+          WHY IT MATCHED
+        </span>
+        <p className="text-xs text-zinc-200 leading-relaxed font-sans">
+          {match.matchReason}
+        </p>
       </div>
 
-      {/* Skills Badges: Matched & Missing */}
+      {/* Skills Badges: Matched (Lime) & Missing (Muted) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
         {/* Matched Skills */}
         <div className="space-y-1.5">
           <span className="text-[10px] font-bold uppercase tracking-wider text-[#34D399] block font-mono">
-            Matched Skills ({match.matchedSkills.length})
+            MATCHED SKILLS ({match.matchedSkills.length})
           </span>
           <div className="flex flex-wrap gap-1">
             {match.matchedSkills.length > 0 ? (
@@ -84,7 +109,7 @@ export function RankedProjectCard({ match, rank }: RankedProjectCardProps) {
         {/* Missing Skills */}
         <div className="space-y-1.5">
           <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block font-mono">
-            Missing Skills ({match.missingSkills.length})
+            MISSING SKILLS ({match.missingSkills.length})
           </span>
           <div className="flex flex-wrap gap-1">
             {match.missingSkills.length > 0 ? (
@@ -127,7 +152,7 @@ export function RankedProjectCard({ match, rank }: RankedProjectCardProps) {
         </div>
       </div>
 
-      {/* Collapsible Evidence Section */}
+      {/* VERIFIED EVIDENCE (Collapsible) */}
       {match.evidenceQuotes.length > 0 && (
         <div className="pt-2">
           <button
@@ -135,8 +160,8 @@ export function RankedProjectCard({ match, rank }: RankedProjectCardProps) {
             className="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-zinc-400 hover:text-zinc-200 bg-[#0D1017] border border-[#1F2432] rounded-lg transition-all cursor-pointer"
           >
             <span className="flex items-center gap-1.5">
-              <svg className="w-3.5 h-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-              {showEvidence ? "Hide Deep Repository Evidence" : "Show Deep Repository Evidence"} ({match.evidenceQuotes.length} Points)
+              <svg className="w-3.5 h-3.5 text-[#38BDF8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+              <span>VERIFIED EVIDENCE</span> ({match.evidenceQuotes.length} Points)
             </span>
             <svg
               className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -152,8 +177,8 @@ export function RankedProjectCard({ match, rank }: RankedProjectCardProps) {
 
           {showEvidence && (
             <div className="mt-2.5 p-3.5 bg-[#0D1017] rounded-xl border border-[#1F2432] space-y-2 text-xs font-mono">
-              <span className="text-[10px] uppercase font-bold text-zinc-500 tracking-wider block">
-                Source Code & Manifest Evidence Snippets
+              <span className="text-[10px] uppercase font-bold text-[#38BDF8] tracking-wider block">
+                SOURCE CODE & MANIFEST EVIDENCE SNIPPETS
               </span>
               <div className="space-y-2">
                 {match.evidenceQuotes.map((quote, idx) => (

@@ -55,14 +55,34 @@ export default function JobMatchPage() {
       <Header />
 
       {/* Hero & Content */}
-      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
+      <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-10 relative z-10">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
+          <span className="text-[11px] uppercase font-mono font-bold text-[#C8FF4A] tracking-widest bg-[#C8FF4A]/10 px-2.5 py-1 rounded border border-[#C8FF4A]/20">
+            AI RELEVANCE EVALUATION
+          </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
             Job Match & <span className="text-[#C8FF4A]">Project Relevance Ranking</span>
           </h1>
-          <p className="text-zinc-400 text-sm leading-relaxed">
+          <p className="text-zinc-400 text-sm leading-relaxed font-sans">
             Match a candidate&apos;s actual repository source code, manifests, and documentation against target job description requirements.
           </p>
+        </div>
+
+        {/* Top Matching Engine Pipeline Diagram */}
+        <div className="p-4 rounded-xl card-surface max-w-3xl mx-auto font-mono text-xs text-center space-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="px-3 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-zinc-300">
+              Developer GitHub Profile + Job Description
+            </span>
+            <span className="text-[#C8FF4A]">↓</span>
+            <span className="px-3 py-1 rounded bg-[#C8FF4A]/10 border border-[#C8FF4A]/30 text-[#C8FF4A] font-bold">
+              MATCH ENGINE
+            </span>
+            <span className="text-[#C8FF4A]">↓</span>
+            <span className="px-3 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-[#38BDF8] font-bold">
+              Ranked Relevant Projects
+            </span>
+          </div>
         </div>
 
         {/* Input Form */}
@@ -70,7 +90,7 @@ export default function JobMatchPage() {
 
         {/* Error Banner */}
         {error && (
-          <div className="max-w-2xl mx-auto bg-rose-950/50 border border-rose-800/80 rounded-xl p-4 text-center text-rose-300 text-sm flex items-center justify-center gap-2 shadow-lg">
+          <div className="max-w-2xl mx-auto bg-rose-950/50 border border-rose-800/80 rounded-xl p-4 text-center text-rose-300 text-sm flex items-center justify-center gap-2 shadow-lg font-sans">
             <svg className="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             <span>{error}</span>
           </div>
@@ -84,8 +104,8 @@ export default function JobMatchPage() {
 
             {/* Extracted Job Requirements Breakdown */}
             <section className="card-surface rounded-2xl p-6 shadow-xl space-y-4">
-              <h2 className="text-xl font-extrabold text-zinc-100 pb-3 border-b border-[#1F2432] flex items-center justify-between">
-                <span>Extracted Job Requirements</span>
+              <h2 className="text-sm font-mono font-bold text-zinc-100 uppercase tracking-wider pb-3 border-b border-[#1F2432] flex items-center justify-between">
+                <span>EXTRACTED JOB REQUIREMENTS</span>
                 <span className="text-xs font-mono text-[#38BDF8]">
                   {jobRequirements.keywords.length} Target Skills Identified
                 </span>
@@ -112,7 +132,7 @@ export default function JobMatchPage() {
                     {rankedProjects.length} Projects Analyzed
                   </span>
                 </h2>
-                <p className="text-xs text-zinc-400 mt-1">
+                <p className="text-xs text-zinc-400 mt-1 font-sans">
                   Ranked by implementation code evidence (35%), manifests (25%), language (20%), README (15%), and activity (5%)
                 </p>
               </div>
