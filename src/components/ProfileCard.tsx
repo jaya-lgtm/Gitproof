@@ -1,10 +1,14 @@
 import { GitHubUser } from "@/lib/github";
+import { useAuth } from "@/context/AuthContext";
 
 interface ProfileCardProps {
   user: GitHubUser;
 }
 
 export function ProfileCard({ user }: ProfileCardProps) {
+  const { saveProof, isProofSaved } = useAuth();
+  const saved = isProofSaved(user.login);
+
   const joinedDate = new Date(user.created_at).toLocaleDateString("en-US", {
     month: "short",
     year: "numeric",
@@ -39,14 +43,27 @@ export function ProfileCard({ user }: ProfileCardProps) {
                   @{user.login}
                 </a>
               </div>
-              <a
-                href={user.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
-              >
-                View on GitHub
-              </a>
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  onClick={() => saveProof(user)}
+                  disabled={saved}
+                  className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
+                    saved
+                      ? "bg-emerald-950/80 text-emerald-400 border border-emerald-800 cursor-default"
+                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md shadow-emerald-500/20"
+                  }`}
+                >
+                  <span>{saved ? "✓ Saved Proof" : "Save Proof"}</span>
+                </button>
+                <a
+                  href={user.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
+                >
+                  View on GitHub
+                </a>
+              </div>
             </div>
           </div>
 

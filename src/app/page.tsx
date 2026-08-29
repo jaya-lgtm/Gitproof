@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Header } from "@/components/Header";
 import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
 import { RepositoryList } from "@/components/RepositoryList";
@@ -65,42 +66,7 @@ export default function Home() {
       </div>
 
       {/* Header */}
-      <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center font-black text-slate-950 text-base shadow-md shadow-emerald-500/20">
-              GP
-            </div>
-            <span className="font-bold text-lg tracking-tight text-slate-100">
-              GitProof
-            </span>
-            <span className="px-2 py-0.5 text-[10px] uppercase font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60 rounded-full">
-              MVP
-            </span>
-          </div>
-
-          <nav className="flex items-center gap-4 text-xs font-medium">
-            <Link
-              href="/"
-              className="text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
-            >
-              Single Analysis
-            </Link>
-            <Link
-              href="/compare"
-              className="text-slate-400 hover:text-slate-200 transition-colors"
-            >
-              Compare Profiles
-            </Link>
-            <Link
-              href="/job-match"
-              className="text-slate-400 hover:text-slate-200 transition-colors"
-            >
-              Job Match
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero & Content */}
       <div className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
