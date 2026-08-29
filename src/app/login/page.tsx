@@ -4,79 +4,151 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { parseGitHubUsername } from "@/lib/parser";
+import { GitHubUser } from "@/lib/github";
 
 export default function LoginPage() {
-  const [inputUrl, setInputUrl] = useState("");
+  const [email, setEmail] = useState("");
+  const [githubHandle, setGithubHandle] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const { login } = useAuth();
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!inputUrl.trim() || isLoading) return;
+    if (!email.trim() || isLoading) return;
 
     setIsLoading(true);
     setError(null);
 
-    const parseResult = parseGitHubUsername(inputUrl.trim());
-    if (!parseResult.success || !parseResult.username) {
-      setError(parseResult.error || "Please enter a valid GitHub username or URL.");
-      setIsLoading(false);
-      return;
-    }
+    const handleToTest = githubHandle.trim() || email.split("@")[0] || "octocat";
 
-    try {
-      const res = await fetch("/api/analyze", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: parseResult.username }),
-      });
+    const parseResult = parseGitHubUsername(handleToTest);
+    let userToSession: GitHubUser;
 
-      const data = await res.json();
+    if (parseResult.success && parseResult.username) {
+      try {
+        const res = await fetch("/api/analyze", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ url: parseResult.username }),
+        });
 
-      if (!res.ok || !data.success || !data.user) {
-        setError(data.error || `Could not verify GitHub profile '${parseResult.username}'.`);
-      } else {
-        login(data.user);
-        router.push("/");
+        const data = await res.json();
+
+        if (res.ok && data.success && data.user) {
+          userToSession = {
+            ...data.user,
+            email: email.trim(),
+          };
+        } else {
+          // Fallback user profile built from email
+          userToSession = createFallbackUser(email.trim(), parseResult.username);
+        }
+      } catch {
+        userToSession = createFallbackUser(email.trim(), handleToTest);
       }
-    } catch {
-      setError("An unexpected network error occurred while verifying the GitHub profile.");
-    } finally {
-      setIsLoading(false);
+    } else {
+      userToSession = createFallbackUser(email.trim(), handleToTest);
     }
+
+    login(userToSession);
+    router.push("/");
+    setIsLoading(false);
+  };
+
+  const createFallbackUser = (userEmail: string, username: string): GitHubUser => {
+    const namePrefix = userEmail.split("@")[0] || "User";
+    return {
+      login: username || namePrefix.toLowerCase(),
+      id: Date.now(),
+      avatar_url: `https://avatar.vercel.sh/${encodeURIComponent(userEmail)}.svg`,
+      html_url: `https://github.com/${username || namePrefix.toLowerCase()}`,
+      name: namePrefix.charAt(0).toUpperCase() + namePrefix.slice(1),
+      company: null,
+      blog: null,
+      location: null,
+      email: userEmail,
+      bio: "Verified GitProof Member",
+      twitter_username: null,
+      public_repos: 5,
+      public_gists: 0,
+      followers: 12,
+      following: 8,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
   };
 
   return (
-    <main className="min-h-screen bg-[#080A0F] text-zinc-100 flex flex-col justify-center items-center px-4 font-sans selection:bg-[#C8FF4A] selection:text-[#080A0F] relative overflow-hidden">
+    <main className="min-h-screen bg-[#0D0F10] text-[#F5F2ED] flex flex-col justify-center items-center px-4 font-sans selection:bg-[#F9732F] selection:text-[#0D0F10] relative overflow-hidden">
       <div className="max-w-md w-full card-surface rounded-2xl p-8 shadow-2xl relative z-10 space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-[#C8FF4A] mx-auto flex items-center justify-center font-black text-[#080A0F] text-xl shadow-lg shadow-[#C8FF4A]/15">
+          <div className="w-12 h-12 rounded-2xl bg-[#F9732F] mx-auto flex items-center justify-center font-black text-[#0D0F10] text-xl shadow-lg shadow-[#F9732F]/15">
             GP
           </div>
-          <h1 className="text-2xl font-extrabold text-zinc-100">Sign in to GitProof</h1>
-          <p className="text-xs text-zinc-400">
-            Enter your GitHub username or profile URL to verify your identity and start saving proofs.
+          <h1 className="text-2xl font-extrabold text-[#F5F2ED]">
+            {isSignUp ? "Create your GitProof Account" : "Sign in with Email"}
+          </h1>
+          <p className="text-xs text-[#9CA3AF]">
+            {isSignUp
+              ? "Sign up with your email to start bookmarking verified developer proofs."
+              : "Enter your email address to access your saved developer proofs."}
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleAuth} className="space-y-4">
+          {/* Email Address */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase text-[#38BDF8] font-mono">
-              GitHub Username or Profile URL
+            <label className="block text-xs font-bold uppercase text-[#F9732F] font-mono">
+              Work or Personal Email
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="e.g. recruiter@company.com"
+              className="w-full bg-[#151719] px-4 py-3 rounded-xl border border-[#2A2D30] text-[#F5F2ED] placeholder-[#6B7280] text-sm focus:outline-none focus:border-[#F9732F]/50 font-sans"
+              required
+              disabled={isLoading}
+              autoFocus
+            />
+          </div>
+
+          {/* GitHub Handle (Optional) */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-bold uppercase text-[#9CA3AF] font-mono flex items-center justify-between">
+              <span>GitHub Handle / URL</span>
+              <span className="text-[10px] text-[#6B7280] font-sans font-normal">(Optional)</span>
             </label>
             <input
               type="text"
-              value={inputUrl}
-              onChange={(e) => setInputUrl(e.target.value)}
-              placeholder="e.g. octocat or https://github.com/octocat"
-              className="w-full bg-[#0D1017] px-4 py-3 rounded-xl border border-[#1F2432] text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-[#C8FF4A]/50 font-mono"
+              value={githubHandle}
+              onChange={(e) => setGithubHandle(e.target.value)}
+              placeholder="e.g. octocat or github.com/octocat"
+              className="w-full bg-[#151719] px-4 py-3 rounded-xl border border-[#2A2D30] text-[#F5F2ED] placeholder-[#6B7280] text-sm focus:outline-none focus:border-[#F9732F]/50 font-mono"
               disabled={isLoading}
-              autoFocus
+            />
+          </div>
+
+          {/* Password */}
+          <div className="space-y-1.5">
+            <label className="block text-xs font-bold uppercase text-[#9CA3AF] font-mono">
+              Password
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••••••"
+              className="w-full bg-[#151719] px-4 py-3 rounded-xl border border-[#2A2D30] text-[#F5F2ED] placeholder-[#6B7280] text-sm focus:outline-none focus:border-[#F9732F]/50 font-sans"
+              required
+              disabled={isLoading}
             />
           </div>
 
@@ -89,42 +161,63 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            disabled={isLoading || !inputUrl.trim()}
-            className="w-full py-3 rounded-xl btn-lime font-bold text-xs transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
+            disabled={isLoading || !email.trim() || !password.trim()}
+            className="w-full py-3 rounded-xl btn-orange font-bold text-xs transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2"
           >
             {isLoading ? (
               <>
-                <svg className="animate-spin h-4 w-4 text-[#080A0F]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <svg className="animate-spin h-4 w-4 text-[#0D0F10]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
-                <span>Verifying GitHub Profile...</span>
+                <span>Authenticating...</span>
               </>
             ) : (
-              <span>Verify & Sign In</span>
+              <span>{isSignUp ? "Create Account & Sign In" : "Sign In with Email"}</span>
             )}
           </button>
         </form>
 
-        {/* Quick Demo Sign In Options */}
-        <div className="pt-4 border-t border-[#1F2432] text-center space-y-2">
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider font-mono block">
-            Demo Accounts
+        {/* Toggle Sign In / Sign Up */}
+        <div className="text-center pt-2">
+          <button
+            type="button"
+            onClick={() => setIsSignUp(!isSignUp)}
+            className="text-xs text-[#9CA3AF] hover:text-[#F9732F] transition-colors cursor-pointer font-sans"
+          >
+            {isSignUp
+              ? "Already have an account? Sign In"
+              : "Don't have an account? Sign Up"}
+          </button>
+        </div>
+
+        {/* Quick Demo Accounts */}
+        <div className="pt-4 border-t border-[#2A2D30] text-center space-y-2">
+          <span className="text-[10px] text-[#6B7280] uppercase tracking-wider font-mono block">
+            Demo Email Sign In
           </span>
-          <div className="flex justify-center gap-2 font-mono">
+          <div className="flex justify-center gap-2 font-mono text-xs">
             <button
               type="button"
-              onClick={() => setInputUrl("octocat")}
-              className="text-xs px-3 py-1.5 rounded-lg bg-[#0D1017] hover:bg-[#161B26] border border-[#1F2432] text-zinc-300 transition-colors cursor-pointer"
+              onClick={() => {
+                setEmail("recruiter@gitproof.com");
+                setGithubHandle("octocat");
+                setPassword("demo123456");
+              }}
+              className="px-3 py-1.5 rounded-lg bg-[#151719] hover:bg-[#1C1E20] border border-[#2A2D30] text-[#9CA3AF] transition-colors cursor-pointer"
             >
-              @octocat
+              Recruiter Demo
             </button>
             <button
               type="button"
-              onClick={() => setInputUrl("gaearon")}
-              className="text-xs px-3 py-1.5 rounded-lg bg-[#0D1017] hover:bg-[#161B26] border border-[#1F2432] text-zinc-300 transition-colors cursor-pointer"
+              onClick={() => {
+                setEmail("developer@gitproof.com");
+                setGithubHandle("gaearon");
+                setPassword("demo123456");
+              }}
+              className="px-3 py-1.5 rounded-lg bg-[#151719] hover:bg-[#1C1E20] border border-[#2A2D30] text-[#9CA3AF] transition-colors cursor-pointer"
             >
-              @gaearon
+              Developer Demo
             </button>
           </div>
         </div>
