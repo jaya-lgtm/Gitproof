@@ -42,10 +42,10 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
   const badge = categoryBadges[card.category] || categoryBadges.repository;
 
   return (
-    <div className="card-surface card-surface-hover rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden">
-      <div>
-        {/* Category Badge & Verified Badge */}
-        <div className="flex items-center justify-between gap-2 mb-3">
+    <div className="card-surface card-surface-hover rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden space-y-4">
+      <div className="space-y-3">
+        {/* Category Badge & Verification Level */}
+        <div className="flex items-center justify-between gap-2 border-b border-[#1F2432] pb-2.5">
           <span
             className={`px-2.5 py-0.5 rounded text-[11px] font-semibold flex items-center gap-1.5 ${badge.badgeClass}`}
           >
@@ -58,26 +58,33 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
           </span>
         </div>
 
-        {/* Title & Recruiter Summary */}
-        <h3 className="text-lg font-bold text-zinc-100 group-hover:text-[#C8FF4A] transition-colors tracking-tight">
-          {card.title}
-        </h3>
-        <p className="mt-2 text-xs sm:text-sm text-zinc-300 leading-relaxed font-sans">
-          {card.summary}
-        </p>
+        {/* Title & Prominent Recruiter-Friendly Interpretation */}
+        <div>
+          <h3 className="text-lg font-extrabold text-zinc-100 group-hover:text-[#C8FF4A] transition-colors tracking-tight">
+            {card.title}
+          </h3>
+          <div className="mt-2.5 p-3 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-1">
+            <span className="text-[10px] font-bold text-[#A78BFA] uppercase tracking-wider font-mono block">
+              AI RECRUITER INTERPRETATION
+            </span>
+            <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-sans font-medium">
+              {card.summary}
+            </p>
+          </div>
+        </div>
 
-        {/* Supporting Evidence Bulleted List */}
-        <div className="mt-4 pt-4 border-t border-[#1F2432] space-y-2">
-          <span className="text-[10px] uppercase tracking-wider font-bold text-zinc-500 font-mono flex items-center gap-1">
-            <span className="text-[#34D399]">✓</span> Grounded Evidence Points
+        {/* Supporting Evidence Points */}
+        <div className="pt-2 space-y-2">
+          <span className="text-[10px] uppercase tracking-wider font-bold text-[#34D399] font-mono flex items-center gap-1">
+            <span>✓ VERIFIED SOURCE EVIDENCE</span>
           </span>
           <ul className="space-y-1.5">
             {card.evidence.map((point, index) => (
               <li
                 key={index}
-                className="text-xs text-zinc-300 flex items-start gap-2"
+                className="text-xs text-zinc-300 flex items-start gap-2 bg-[#0D1017]/60 p-2 rounded border border-[#1F2432]"
               >
-                <span className="text-[#34D399] font-bold shrink-0 mt-0.5">✓</span>
+                <span className="text-[#34D399] font-bold shrink-0">✓</span>
                 <span className="leading-snug">{point}</span>
               </li>
             ))}
@@ -87,9 +94,9 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
 
       {/* Supporting Repository Links */}
       {card.supportingRepos.length > 0 && (
-        <div className="mt-5 pt-4 border-t border-[#1F2432]">
-          <span className="text-[10px] uppercase tracking-wider font-bold text-zinc-500 block mb-2 font-mono">
-            Proof Repositories
+        <div className="pt-3 border-t border-[#1F2432]">
+          <span className="text-[10px] uppercase tracking-wider font-bold text-[#38BDF8] block mb-2 font-mono">
+            TECHNICAL / PROOF REPOSITORIES
           </span>
           <div className="flex flex-wrap gap-2">
             {card.supportingRepos.map((repo) => (
@@ -98,7 +105,7 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-xs text-zinc-300 hover:text-[#C8FF4A] hover:border-[#C8FF4A]/40 font-mono transition-all"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-xs text-zinc-300 hover:text-[#38BDF8] hover:border-[#38BDF8]/40 font-mono transition-all"
               >
                 <span>{repo.name}</span>
                 {repo.language && (

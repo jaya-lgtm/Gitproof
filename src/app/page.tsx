@@ -117,7 +117,7 @@ export default function Home() {
         </div>
 
         {/* Connected Evidence Pipeline Workflow */}
-        <div className="p-6 rounded-2xl bg-[#0D1017] border border-[#1F2432] space-y-4">
+        <div className="p-6 rounded-2xl card-surface space-y-3">
           <div className="flex items-center justify-between border-b border-[#1F2432] pb-3">
             <span className="text-xs uppercase font-bold text-zinc-400 font-mono">
               EVIDENCE PIPELINE WORKFLOW
@@ -126,7 +126,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-xl bg-[#11151F] border border-[#1F2432] space-y-2 relative">
+            <div className="p-4 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-zinc-500">01</span>
                 <svg className="w-4 h-4 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
@@ -137,7 +137,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#11151F] border border-[#1F2432] space-y-2 relative">
+            <div className="p-4 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-[#38BDF8]">02</span>
                 <svg className="w-4 h-4 text-[#38BDF8]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"></path></svg>
@@ -148,7 +148,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#11151F] border border-[#1F2432] space-y-2 relative">
+            <div className="p-4 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-[#A78BFA]">03</span>
                 <svg className="w-4 h-4 text-[#A78BFA]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -159,7 +159,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#11151F] border border-[#C8FF4A]/40 space-y-2 relative">
+            <div className="p-4 rounded-xl bg-[#0D1017] border border-[#C8FF4A]/40 space-y-2 relative">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-[#C8FF4A]">04</span>
                 <svg className="w-4 h-4 text-[#C8FF4A]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
@@ -191,6 +191,9 @@ export default function Home() {
               <section className="space-y-6">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#1F2432] pb-4">
                   <div>
+                    <span className="text-[10px] font-mono font-bold text-[#C8FF4A] tracking-wider uppercase block mb-1">
+                      TECHNICAL SIGNALS
+                    </span>
                     <h2 className="text-2xl font-extrabold text-zinc-100 flex items-center gap-2.5">
                       <span>Verifiable Proof of Work</span>
                       <span className="px-2.5 py-0.5 rounded text-xs badge-emerald font-mono">
