@@ -3,12 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { parseGitHubUsername } from "@/lib/parser";
-import { GitHubUser } from "@/lib/github";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
-  const [githubHandle, setGithubHandle] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,70 +16,35 @@ export default function LoginPage() {
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email.trim() || isLoading) return;
+    if (!email.trim() || !password.trim() || isLoading) return;
 
     setIsLoading(true);
     setError(null);
 
-    const handleToTest = githubHandle.trim() || email.split("@")[0] || "octocat";
+    const endpoint = isSignUp ? "/api/auth/signup" : "/api/auth/login";
 
-    const parseResult = parseGitHubUsername(handleToTest);
-    let userToSession: GitHubUser;
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email.trim(), password: password.trim() }),
+      });
 
-    if (parseResult.success && parseResult.username) {
-      try {
-        const res = await fetch("/api/analyze", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ url: parseResult.username }),
-        });
+      const data = await res.json();
 
-        const data = await res.json();
-
-        if (res.ok && data.success && data.user) {
-          userToSession = {
-            ...data.user,
-            email: email.trim(),
-          };
-        } else {
-          // Fallback user profile built from email
-          userToSession = createFallbackUser(email.trim(), parseResult.username);
-        }
-      } catch {
-        userToSession = createFallbackUser(email.trim(), handleToTest);
+      if (!res.ok || !data.success || !data.user) {
+        setError(data.error || "Authentication failed. Please check your credentials.");
+      } else {
+        login(data.user);
+        router.push("/");
       }
-    } else {
-      userToSession = createFallbackUser(email.trim(), handleToTest);
+    } catch {
+      setError("An unexpected network error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-
-    login(userToSession);
-    router.push("/");
-    setIsLoading(false);
-  };
-
-  const createFallbackUser = (userEmail: string, username: string): GitHubUser => {
-    const namePrefix = userEmail.split("@")[0] || "User";
-    return {
-      login: username || namePrefix.toLowerCase(),
-      id: Date.now(),
-      avatar_url: `https://avatar.vercel.sh/${encodeURIComponent(userEmail)}.svg`,
-      html_url: `https://github.com/${username || namePrefix.toLowerCase()}`,
-      name: namePrefix.charAt(0).toUpperCase() + namePrefix.slice(1),
-      company: null,
-      blog: null,
-      location: null,
-      email: userEmail,
-      bio: "Verified GitProof Member",
-      twitter_username: null,
-      public_repos: 5,
-      public_gists: 0,
-      followers: 12,
-      following: 8,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
   };
 
   return (
@@ -93,12 +55,12 @@ export default function LoginPage() {
             GP
           </div>
           <h1 className="text-2xl font-extrabold text-[#F5F2ED]">
-            {isSignUp ? "Create your GitProof Account" : "Sign in with Email"}
+            {isSignUp ? "Create GitProof Account" : "Sign In to GitProof"}
           </h1>
           <p className="text-xs text-[#9CA3AF]">
             {isSignUp
-              ? "Sign up with your email to start bookmarking verified developer proofs."
-              : "Enter your email address to access your saved developer proofs."}
+              ? "Enter your email address and password to register a new account."
+              : "Enter your email address and password to sign in."}
           </p>
         </div>
 
@@ -106,7 +68,7 @@ export default function LoginPage() {
           {/* Email Address */}
           <div className="space-y-1.5">
             <label className="block text-xs font-bold uppercase text-[#F9732F] font-mono">
-              Work or Personal Email
+              Email Address
             </label>
             <input
               type="email"
@@ -117,22 +79,6 @@ export default function LoginPage() {
               required
               disabled={isLoading}
               autoFocus
-            />
-          </div>
-
-          {/* GitHub Handle (Optional) */}
-          <div className="space-y-1.5">
-            <label className="block text-xs font-bold uppercase text-[#9CA3AF] font-mono flex items-center justify-between">
-              <span>GitHub Handle / URL</span>
-              <span className="text-[10px] text-[#6B7280] font-sans font-normal">(Optional)</span>
-            </label>
-            <input
-              type="text"
-              value={githubHandle}
-              onChange={(e) => setGithubHandle(e.target.value)}
-              placeholder="e.g. octocat or github.com/octocat"
-              className="w-full bg-[#151719] px-4 py-3 rounded-xl border border-[#2A2D30] text-[#F5F2ED] placeholder-[#6B7280] text-sm focus:outline-none focus:border-[#F9732F]/50 font-mono"
-              disabled={isLoading}
             />
           </div>
 
@@ -173,7 +119,7 @@ export default function LoginPage() {
                 <span>Authenticating...</span>
               </>
             ) : (
-              <span>{isSignUp ? "Create Account & Sign In" : "Sign In with Email"}</span>
+              <span>{isSignUp ? "Create Account & Sign In" : "Sign In"}</span>
             )}
           </button>
         </form>
@@ -182,7 +128,10 @@ export default function LoginPage() {
         <div className="text-center pt-2">
           <button
             type="button"
-            onClick={() => setIsSignUp(!isSignUp)}
+            onClick={() => {
+              setIsSignUp(!isSignUp);
+              setError(null);
+            }}
             className="text-xs text-[#9CA3AF] hover:text-[#F9732F] transition-colors cursor-pointer font-sans"
           >
             {isSignUp
@@ -191,17 +140,16 @@ export default function LoginPage() {
           </button>
         </div>
 
-        {/* Quick Demo Accounts */}
+        {/* Quick Demo Credentials */}
         <div className="pt-4 border-t border-[#2A2D30] text-center space-y-2">
           <span className="text-[10px] text-[#6B7280] uppercase tracking-wider font-mono block">
-            Demo Email Sign In
+            Demo Credentials
           </span>
           <div className="flex justify-center gap-2 font-mono text-xs">
             <button
               type="button"
               onClick={() => {
                 setEmail("recruiter@gitproof.com");
-                setGithubHandle("octocat");
                 setPassword("demo123456");
               }}
               className="px-3 py-1.5 rounded-lg bg-[#151719] hover:bg-[#1C1E20] border border-[#2A2D30] text-[#9CA3AF] transition-colors cursor-pointer"
@@ -212,7 +160,6 @@ export default function LoginPage() {
               type="button"
               onClick={() => {
                 setEmail("developer@gitproof.com");
-                setGithubHandle("gaearon");
                 setPassword("demo123456");
               }}
               className="px-3 py-1.5 rounded-lg bg-[#151719] hover:bg-[#1C1E20] border border-[#2A2D30] text-[#9CA3AF] transition-colors cursor-pointer"
