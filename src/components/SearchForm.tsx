@@ -19,7 +19,7 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
-      <div className="relative flex flex-col sm:flex-row items-center gap-3 p-2 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-2xl backdrop-blur-xl">
+      <div className="relative flex flex-col sm:flex-row items-center gap-2 p-2 rounded-2xl glass-card border border-slate-800 shadow-2xl">
         <div className="relative flex-1 w-full pl-3 pr-2 py-1">
           <input
             type="text"
@@ -33,12 +33,12 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
         <button
           type="submit"
           disabled={isLoading || !inputUrl.trim()}
-          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-semibold text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20"
+          className="w-full sm:w-auto px-6 py-3 rounded-xl btn-primary text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center gap-2 shrink-0"
         >
           {isLoading ? (
             <>
               <svg
-                className="animate-spin h-4 w-4 text-slate-950"
+                className="animate-spin h-4 w-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -60,12 +60,12 @@ export function SearchForm({ onSearch, isLoading }: SearchFormProps) {
               <span>Analyzing...</span>
             </>
           ) : (
-            <span>Analyze GitHub</span>
+            <span>Analyze Profile</span>
           )}
         </button>
       </div>
-      <p className="mt-2 text-center text-xs text-slate-500">
-        Supports full GitHub profile URLs, github.com/username, or @username
+      <p className="mt-2 text-center text-xs text-slate-500 font-mono">
+        Supports GitHub profile URLs, github.com/username, or @username
       </p>
     </form>
   );

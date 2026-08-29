@@ -15,14 +15,17 @@ export function ProfileCard({ user }: ProfileCardProps) {
   });
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-sm shadow-xl">
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+    <div className="glass-card rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+      {/* Background Subtle Gradient Glow */}
+      <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-6 relative z-10">
         {/* Avatar */}
         <div className="relative group shrink-0">
           <img
             src={user.avatar_url}
             alt={`${user.login}'s avatar`}
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-emerald-500/30 object-cover shadow-md"
+            className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl border-2 border-blue-500/30 object-cover shadow-lg"
           />
         </div>
 
@@ -31,14 +34,14 @@ export function ProfileCard({ user }: ProfileCardProps) {
           <div>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
               <div>
-                <h2 className="text-2xl font-bold text-slate-100">
+                <h2 className="text-2xl font-extrabold text-slate-100">
                   {user.name || user.login}
                 </h2>
                 <a
                   href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 hover:text-emerald-300 font-mono text-sm transition-colors inline-block"
+                  className="text-blue-400 hover:text-blue-300 font-mono text-sm transition-colors inline-block"
                 >
                   @{user.login}
                 </a>
@@ -49,8 +52,8 @@ export function ProfileCard({ user }: ProfileCardProps) {
                   disabled={saved}
                   className={`px-4 py-2 text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 ${
                     saved
-                      ? "bg-emerald-950/80 text-emerald-400 border border-emerald-800 cursor-default"
-                      : "bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-md shadow-emerald-500/20"
+                      ? "bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 cursor-default"
+                      : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/20"
                   }`}
                 >
                   <span>{saved ? "✓ Saved Proof" : "Save Proof"}</span>
@@ -59,7 +62,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                   href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl transition-all"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-medium text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-800 rounded-xl transition-all"
                 >
                   View on GitHub
                 </a>
@@ -92,7 +95,7 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 href={user.blog.startsWith("http") ? user.blog : `https://${user.blog}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 hover:text-emerald-400 transition-colors"
+                className="flex items-center gap-1 hover:text-blue-400 transition-colors"
               >
                 <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
                 Website
@@ -106,27 +109,27 @@ export function ProfileCard({ user }: ProfileCardProps) {
 
           {/* Stats Bar */}
           <div className="pt-4 grid grid-cols-3 gap-3 max-w-md mx-auto md:mx-0">
-            <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-center">
+            <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center font-mono">
               <span className="block text-xl font-bold text-slate-100">
                 {user.public_repos}
               </span>
-              <span className="text-[11px] uppercase tracking-wider text-slate-400">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">
                 Repositories
               </span>
             </div>
-            <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-center">
+            <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center font-mono">
               <span className="block text-xl font-bold text-slate-100">
                 {user.followers}
               </span>
-              <span className="text-[11px] uppercase tracking-wider text-slate-400">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">
                 Followers
               </span>
             </div>
-            <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-center">
+            <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-center font-mono">
               <span className="block text-xl font-bold text-slate-100">
                 {user.following}
               </span>
-              <span className="text-[11px] uppercase tracking-wider text-slate-400">
+              <span className="text-[10px] uppercase tracking-wider text-slate-400 font-sans">
                 Following
               </span>
             </div>

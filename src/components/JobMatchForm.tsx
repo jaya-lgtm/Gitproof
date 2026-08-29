@@ -41,8 +41,8 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
     <form onSubmit={handleSubmit} className="w-full max-w-4xl mx-auto space-y-6">
       <div className="space-y-4">
         {/* GitHub Profile URL */}
-        <div className="p-3 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl backdrop-blur-xl">
-          <label className="block text-xs font-semibold uppercase text-emerald-400 px-1 mb-1">
+        <div className="p-3 rounded-2xl glass-card">
+          <label className="block text-xs font-semibold uppercase text-blue-400 px-1 mb-1 font-mono">
             GitHub Profile URL or Username
           </label>
           <input
@@ -56,19 +56,19 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
         </div>
 
         {/* Job Description Textarea */}
-        <div className="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl backdrop-blur-xl space-y-2">
+        <div className="p-4 rounded-2xl glass-card space-y-2">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <label className="block text-xs font-semibold uppercase text-emerald-400">
+            <label className="block text-xs font-semibold uppercase text-blue-400 font-mono">
               Paste Job Description (JD)
             </label>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-slate-400">Quick Samples:</span>
+              <span className="text-[11px] text-slate-400 font-mono">Quick Samples:</span>
               {SAMPLE_JOB_DESCRIPTIONS.map((sample, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setJobDescription(sample.text)}
-                  className="text-[11px] px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                  className="text-[11px] px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-colors cursor-pointer"
                 >
                   {sample.title}
                 </button>
@@ -81,7 +81,7 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
             onChange={(e) => setJobDescription(e.target.value)}
             rows={6}
             placeholder="Paste the job requirements, tech stack, and responsibilities here..."
-            className="w-full bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500/50 resize-y font-sans leading-relaxed"
+            className="w-full bg-slate-950/80 p-3 rounded-xl border border-slate-800 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-blue-500/50 resize-y font-sans leading-relaxed"
             disabled={isLoading}
           />
         </div>
@@ -91,12 +91,12 @@ export function JobMatchForm({ onMatch, isLoading }: JobMatchFormProps) {
         <button
           type="submit"
           disabled={isLoading || !githubUrl.trim() || !jobDescription.trim()}
-          className="px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-semibold text-sm transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-lg shadow-emerald-500/20 inline-flex items-center gap-2"
+          className="px-8 py-3.5 rounded-xl btn-primary text-sm font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer inline-flex items-center gap-2"
         >
           {isLoading ? (
             <>
               <svg
-                className="animate-spin h-4 w-4 text-slate-950"
+                className="animate-spin h-4 w-4 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

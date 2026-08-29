@@ -46,21 +46,20 @@ export default function ComparePage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <main className="min-h-screen bg-[#020617] text-slate-100 flex flex-col font-sans selection:bg-blue-500 selection:text-white relative overflow-hidden">
       {/* Background Accent Gradients */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-violet-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* Header with Navigation */}
       <Header />
 
       {/* Hero & Comparison Form */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-            Compare <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">GitHub Developers</span> Side-by-Side
+            Compare <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-violet-400">GitHub Developers</span> Side-by-Side
           </h1>
           <p className="text-slate-400 text-sm leading-relaxed">
             Neutral, evidence-based comparison of public repositories, tech stacks, and development activity. Zero subjective rankings or AI fabrications.
@@ -87,7 +86,7 @@ export default function ComparePage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 font-mono">
         GitProof &copy; {new Date().getFullYear()} — Evidence-based developer portfolio comparison
       </footer>
     </main>

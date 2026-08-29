@@ -28,9 +28,9 @@ export function DevelopmentEvidenceSection({
     <section className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+          <h2 className="text-2xl font-extrabold text-slate-100 flex items-center gap-2">
             <span>Verified Development Evidence</span>
-            <span className="px-2.5 py-0.5 rounded-full text-xs bg-sky-950 text-sky-400 border border-sky-800 font-mono">
+            <span className="px-2.5 py-0.5 rounded-full text-xs bg-blue-950/80 text-blue-400 border border-blue-800/80 font-mono">
               {evidences.length} Items
             </span>
           </h2>
@@ -40,12 +40,12 @@ export function DevelopmentEvidenceSection({
         </div>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center gap-1.5 bg-slate-900 p-1.5 rounded-xl border border-slate-800">
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800">
           <button
             onClick={() => setActiveTab("ALL")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               activeTab === "ALL"
-                ? "bg-slate-800 text-slate-100 shadow border border-slate-700"
+                ? "bg-blue-600 text-white shadow border border-blue-500/30"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
@@ -65,7 +65,7 @@ export function DevelopmentEvidenceSection({
             onClick={() => setActiveTab("Issue")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
               activeTab === "Issue"
-                ? "bg-amber-950 text-amber-400 shadow border border-amber-800"
+                ? "bg-violet-950 text-violet-400 shadow border border-violet-800"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
@@ -75,7 +75,7 @@ export function DevelopmentEvidenceSection({
             onClick={() => setActiveTab("Commit")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer flex items-center gap-1 ${
               activeTab === "Commit"
-                ? "bg-sky-950 text-sky-400 shadow border border-sky-800"
+                ? "bg-blue-950 text-blue-400 shadow border border-blue-800"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
@@ -85,7 +85,7 @@ export function DevelopmentEvidenceSection({
       </div>
 
       {filteredEvidences.length === 0 ? (
-        <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 text-center text-slate-400 text-sm">
+        <div className="glass-card rounded-2xl p-8 text-center text-slate-400 text-sm">
           No verified evidence found for category &apos;{activeTab}&apos;.
         </div>
       ) : (

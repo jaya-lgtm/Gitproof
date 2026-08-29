@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { Header } from "@/components/Header";
 import { SearchForm } from "@/components/SearchForm";
 import { ProfileCard } from "@/components/ProfileCard";
@@ -58,22 +57,21 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
-      {/* Background Accent Gradients */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+    <main className="min-h-screen bg-[#020617] text-slate-100 flex flex-col font-sans selection:bg-blue-500 selection:text-white relative overflow-hidden">
+      {/* Background Glow Accents */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-violet-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* Header */}
       <Header />
 
       {/* Hero & Content */}
       <div className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
         {/* Hero Banner */}
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-100">
-            Verifiable <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Proof of Work</span> from GitHub
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-slate-100 leading-tight">
+            Verifiable <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-violet-400">Proof of Work</span> from GitHub
           </h1>
           <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
             Convert real GitHub evidence into recruiter-friendly technical proof. Enter any public GitHub profile to get started.
@@ -87,9 +85,9 @@ export default function Home() {
             <span>→</span>
             <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300">Recent Development Evidence</span>
             <span>→</span>
-            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400">AI Interpretation</span>
+            <span className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-blue-400">AI Interpretation</span>
             <span>→</span>
-            <span className="px-2.5 py-1 rounded-lg bg-emerald-950 border border-emerald-800 text-emerald-300 font-bold">Recruiter Proof</span>
+            <span className="px-2.5 py-1 rounded-lg bg-blue-950 border border-blue-800 text-blue-300 font-bold">Recruiter Proof</span>
           </div>
         </div>
 
@@ -117,7 +115,7 @@ export default function Home() {
                   <div>
                     <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
                       <span>Verifiable Proof of Work</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs bg-blue-950/80 text-blue-400 border border-blue-800/80 font-mono">
                         {analysis.cards.length} Cards
                       </span>
                     </h2>
@@ -134,7 +132,7 @@ export default function Home() {
                           key={lang.language}
                           className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300"
                         >
-                          <span className="text-emerald-400 font-semibold">
+                          <span className="text-blue-400 font-semibold">
                             {lang.language}
                           </span>{" "}
                           ({lang.percentage}%)
@@ -164,7 +162,7 @@ export default function Home() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 font-mono">
         GitProof &copy; {new Date().getFullYear()} — Evidence-based developer portfolio
       </footer>
     </main>

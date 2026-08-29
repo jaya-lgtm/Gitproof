@@ -9,52 +9,52 @@ export function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+    <header className="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center font-black text-slate-950 text-base shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center font-black text-white text-sm shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform">
               GP
             </div>
-            <span className="font-bold text-lg tracking-tight text-slate-100 group-hover:text-emerald-400 transition-colors">
+            <span className="font-bold text-lg tracking-tight text-slate-100 group-hover:text-blue-400 transition-colors">
               GitProof
             </span>
           </Link>
-          <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] uppercase font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800/60 rounded-full">
-            MVP
+          <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-semibold bg-blue-950/60 text-blue-400 border border-blue-800/50 rounded-full font-mono">
+            Verified Proof
           </span>
         </div>
 
         {/* Navigation & Auth Badge */}
         <div className="flex items-center gap-6">
-          <nav className="flex items-center gap-4 text-xs font-medium">
+          <nav className="flex items-center gap-2 sm:gap-4 text-xs font-medium">
             <Link
               href="/"
-              className={`transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-all ${
                 pathname === "/"
-                  ? "text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/50"
               }`}
             >
               Single Analysis
             </Link>
             <Link
               href="/compare"
-              className={`transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-all ${
                 pathname === "/compare"
-                  ? "text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/50"
               }`}
             >
-              Compare Profiles
+              Compare
             </Link>
             <Link
               href="/job-match"
-              className={`transition-colors ${
+              className={`px-3 py-1.5 rounded-lg transition-all ${
                 pathname === "/job-match"
-                  ? "text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold"
+                  : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/50"
               }`}
             >
               Job Match
@@ -62,14 +62,14 @@ export function Header() {
             {savedProofs.length > 0 && (
               <Link
                 href="/saved"
-                className={`transition-colors flex items-center gap-1 ${
+                className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
                   pathname === "/saved"
-                    ? "text-emerald-400 font-semibold border-b-2 border-emerald-400 pb-0.5"
-                    : "text-slate-400 hover:text-slate-200"
+                    ? "bg-slate-900 text-blue-400 border border-blue-500/30 font-semibold"
+                    : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/50"
                 }`}
               >
-                <span>Saved Proofs</span>
-                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                <span>Saved</span>
+                <span className="px-1.5 py-0.2 rounded-full text-[10px] bg-blue-950 text-blue-400 border border-blue-800/80 font-mono">
                   {savedProofs.length}
                 </span>
               </Link>
@@ -83,9 +83,9 @@ export function Header() {
                 <img
                   src={user.avatar_url}
                   alt={user.login}
-                  className="w-7 h-7 rounded-lg border border-emerald-500/40 object-cover"
+                  className="w-7 h-7 rounded-lg border border-blue-500/40 object-cover"
                 />
-                <span className="text-xs font-semibold text-slate-200 hidden md:inline-block">
+                <span className="text-xs font-semibold text-slate-200 hidden md:inline-block font-mono">
                   @{user.login}
                 </span>
               </div>
@@ -100,7 +100,7 @@ export function Header() {
           ) : (
             <Link
               href="/login"
-              className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs text-emerald-400 font-semibold transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-xs text-blue-400 font-semibold transition-all cursor-pointer"
             >
               Sign In
             </Link>

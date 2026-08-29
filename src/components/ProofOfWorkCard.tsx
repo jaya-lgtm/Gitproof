@@ -6,16 +6,16 @@ interface ProofOfWorkCardProps {
 
 export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
   const categoryBadges: Record<EvidenceCard["category"], { label: string; color: string }> = {
-    languages: { label: "Tech Stack", color: "bg-emerald-950 text-emerald-400 border-emerald-800/80" },
-    impact: { label: "Community", color: "bg-amber-950 text-amber-400 border-amber-800/80" },
-    activity: { label: "Activity", color: "bg-sky-950 text-sky-400 border-sky-800/80" },
-    repository: { label: "Portfolio", color: "bg-purple-950 text-purple-400 border-purple-800/80" },
+    languages: { label: "Tech Stack", color: "bg-blue-950/80 text-blue-400 border-blue-800/80" },
+    impact: { label: "Community", color: "bg-violet-950/80 text-violet-400 border-violet-800/80" },
+    activity: { label: "Activity", color: "bg-indigo-950/80 text-indigo-400 border-indigo-800/80" },
+    repository: { label: "Portfolio", color: "bg-slate-900 text-slate-300 border-slate-700/80" },
   };
 
   const badge = categoryBadges[card.category] || categoryBadges.repository;
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 hover:border-slate-700/80 rounded-2xl p-6 transition-all duration-200 shadow-xl flex flex-col justify-between group">
+    <div className="glass-card glass-card-hover rounded-2xl p-6 flex flex-col justify-between group">
       <div>
         {/* Header Badge & Strength */}
         <div className="flex items-center justify-between gap-2 mb-3">
@@ -31,7 +31,7 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
         </div>
 
         {/* Title & Summary */}
-        <h3 className="text-lg font-bold text-slate-100 group-hover:text-emerald-400 transition-colors">
+        <h3 className="text-lg font-bold text-slate-100 group-hover:text-blue-400 transition-colors">
           {card.title}
         </h3>
         <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
@@ -40,16 +40,16 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
 
         {/* Supporting Evidence List */}
         <div className="mt-4 pt-4 border-t border-slate-800/80 space-y-2">
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500">
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 font-mono">
             Verifiable Evidence Points
           </span>
           <ul className="space-y-1.5">
             {card.evidence.map((point, index) => (
               <li
                 key={index}
-                className="text-xs text-slate-400 flex items-start gap-2"
+                className="text-xs text-slate-300 flex items-start gap-2"
               >
-                <span className="text-emerald-400 mt-0.5 font-bold">•</span>
+                <span className="text-blue-400 mt-0.5 font-bold">•</span>
                 <span>{point}</span>
               </li>
             ))}
@@ -60,7 +60,7 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
       {/* Supporting Repositories */}
       {card.supportingRepos.length > 0 && (
         <div className="mt-5 pt-4 border-t border-slate-800/80">
-          <span className="text-[11px] uppercase tracking-wider font-semibold text-slate-500 block mb-2">
+          <span className="text-[10px] uppercase tracking-wider font-semibold text-slate-500 block mb-2 font-mono">
             Proof Repositories
           </span>
           <div className="flex flex-wrap gap-2">
@@ -70,7 +70,7 @@ export function ProofOfWorkCard({ card }: ProofOfWorkCardProps) {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 hover:text-emerald-400 font-mono transition-all"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950 hover:bg-slate-900 border border-slate-800 text-xs text-slate-300 hover:text-blue-400 font-mono transition-all"
               >
                 <span>{repo.name}</span>
                 {repo.language && (

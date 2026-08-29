@@ -22,15 +22,15 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
     },
     Issue: {
       label: "Issue",
-      bg: "bg-amber-950/80",
-      text: "text-amber-400",
-      border: "border-amber-800/80",
+      bg: "bg-violet-950/80",
+      text: "text-violet-400",
+      border: "border-violet-800/80",
     },
     Commit: {
       label: "Commit",
-      bg: "bg-sky-950/80",
-      text: "text-sky-400",
-      border: "border-sky-800/80",
+      bg: "bg-blue-950/80",
+      text: "text-blue-400",
+      border: "border-blue-800/80",
     },
   };
 
@@ -42,7 +42,7 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
   });
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 hover:border-slate-700/80 rounded-2xl p-6 transition-all duration-200 shadow-xl flex flex-col justify-between">
+    <div className="glass-card glass-card-hover rounded-2xl p-6 flex flex-col justify-between">
       <div className="space-y-4">
         {/* Top bar: Type badge, Repo, Status, Date */}
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -56,15 +56,15 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
               href={evidence.repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-mono text-slate-400 hover:text-emerald-400 transition-colors"
+              className="text-xs font-mono text-slate-400 hover:text-blue-400 transition-colors"
             >
               {evidence.repoName}
             </a>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
             {evidence.status && (
-              <span className="capitalize px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px] border border-slate-700">
+              <span className="capitalize px-2 py-0.5 rounded bg-slate-900 text-slate-300 font-mono text-[10px] border border-slate-800">
                 {evidence.status}
               </span>
             )}
@@ -73,15 +73,15 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
         </div>
 
         {/* Recruiter-Friendly Interpretation */}
-        <div className="p-4 bg-slate-950/80 rounded-xl border border-emerald-500/20 space-y-1">
+        <div className="p-4 bg-slate-950/90 rounded-xl border border-blue-500/20 space-y-1">
           <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">
+            <div className="flex items-center gap-1.5 text-[10px] font-semibold text-blue-400 uppercase tracking-wider font-mono">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
               </svg>
               Recruiter-Friendly Interpretation
             </div>
-            <span className="text-[10px] text-slate-500 font-mono">Verified Evidence</span>
+            <span className="text-[10px] text-emerald-400 font-mono">✓ Verified</span>
           </div>
           <p className="text-sm font-medium text-slate-100 leading-relaxed">
             {evidence.recruiterTranslation}
@@ -92,7 +92,7 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
         <div className="pt-1">
           <button
             onClick={() => setShowRawEvidence(!showRawEvidence)}
-            className="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-slate-400 hover:text-slate-200 bg-slate-950/60 hover:bg-slate-950 border border-slate-800/80 rounded-lg transition-all"
+            className="w-full flex items-center justify-between px-3 py-2 text-xs font-mono text-slate-400 hover:text-slate-200 bg-slate-950/60 hover:bg-slate-950 border border-slate-800/80 rounded-lg transition-all cursor-pointer"
           >
             <span className="flex items-center gap-1.5">
               <svg className="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,22 +113,22 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
           </button>
 
           {showRawEvidence && (
-            <div className="mt-2.5 p-3.5 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2 text-xs animate-fade-in">
+            <div className="mt-2.5 p-3.5 bg-slate-950/90 rounded-xl border border-slate-800 space-y-2 text-xs animate-fade-in font-mono">
               <div>
                 <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block">
                   Raw Title / Commit Message
                 </span>
-                <p className="font-mono text-slate-200 bg-slate-900 p-2 rounded border border-slate-800 break-words mt-1">
+                <p className="text-slate-200 bg-slate-900 p-2 rounded border border-slate-800 break-words mt-1">
                   {evidence.title}
                 </p>
               </div>
 
               {evidence.description && (
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block">
+                  <span className="text-[10px] uppercase font-semibold text-slate-500 tracking-wider block font-sans">
                     Description Snippet
                   </span>
-                  <p className="text-slate-300 italic bg-slate-900/50 p-2 rounded mt-1 line-clamp-3">
+                  <p className="text-slate-300 italic bg-slate-900/50 p-2 rounded mt-1 line-clamp-3 font-sans">
                     &quot;{evidence.description}&quot;
                   </p>
                 </div>
@@ -149,7 +149,7 @@ export function DevelopmentEvidenceCard({ evidence }: DevelopmentEvidenceCardPro
           href={evidence.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:text-emerald-300 font-semibold transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs text-blue-400 hover:text-blue-300 font-semibold transition-colors"
         >
           <span>Verify on GitHub</span>
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

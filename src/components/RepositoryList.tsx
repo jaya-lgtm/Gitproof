@@ -7,7 +7,7 @@ interface RepositoryListProps {
 export function RepositoryList({ repos }: RepositoryListProps) {
   if (repos.length === 0) {
     return (
-      <div className="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 text-center text-slate-400">
+      <div className="glass-card rounded-2xl p-8 text-center text-slate-400">
         No public repositories found for this user.
       </div>
     );
@@ -18,11 +18,11 @@ export function RepositoryList({ repos }: RepositoryListProps) {
       <div className="flex items-center justify-between">
         <h3 className="text-xl font-bold text-slate-100 flex items-center gap-2">
           <span>Public Repositories</span>
-          <span className="px-2.5 py-0.5 rounded-full text-xs bg-slate-800 text-emerald-400 border border-slate-700">
+          <span className="px-2.5 py-0.5 rounded-full text-xs bg-slate-900 text-blue-400 border border-slate-800 font-mono">
             {repos.length}
           </span>
         </h3>
-        <span className="text-xs text-slate-400">Sorted by recent activity</span>
+        <span className="text-xs text-slate-400 font-mono">Sorted by recent activity</span>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -39,7 +39,7 @@ export function RepositoryList({ repos }: RepositoryListProps) {
           return (
             <div
               key={repo.id}
-              className="bg-slate-900/80 border border-slate-800 hover:border-slate-700 rounded-xl p-5 flex flex-col justify-between transition-all hover:shadow-lg hover:shadow-slate-950/50 group"
+              className="glass-card glass-card-hover rounded-xl p-5 flex flex-col justify-between group"
             >
               <div>
                 <div className="flex items-start justify-between gap-2">
@@ -47,11 +47,11 @@ export function RepositoryList({ repos }: RepositoryListProps) {
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-base font-semibold text-slate-100 group-hover:text-emerald-400 transition-colors flex items-center gap-1.5 line-clamp-1"
+                    className="text-base font-semibold text-slate-100 group-hover:text-blue-400 transition-colors flex items-center gap-1.5 line-clamp-1 font-mono"
                   >
                     <span>{repo.name}</span>
                     {repo.fork && (
-                      <span className="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700 font-normal">
+                      <span className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800 font-normal font-sans">
                         Fork
                       </span>
                     )}
@@ -63,11 +63,11 @@ export function RepositoryList({ repos }: RepositoryListProps) {
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-400">
+              <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400 font-mono">
                 <div className="flex items-center gap-3">
                   {repo.language && (
                     <span className="flex items-center gap-1.5 font-medium text-slate-300">
-                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
                       {repo.language}
                     </span>
                   )}

@@ -51,21 +51,20 @@ export default function JobMatchPage() {
   };
 
   return (
-    <main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <main className="min-h-screen bg-[#020617] text-slate-100 flex flex-col font-sans selection:bg-blue-500 selection:text-white relative overflow-hidden">
       {/* Background Accent Gradients */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/3 -right-40 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        <div className="absolute -top-40 -left-40 w-[30rem] h-[30rem] bg-blue-600/10 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-violet-600/10 rounded-full blur-[120px]"></div>
       </div>
 
-      {/* Header */}
       <Header />
 
       {/* Hero & Content */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-100">
-            Job Match & <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Project Relevance Ranking</span>
+            Job Match & <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-violet-400">Project Relevance Ranking</span>
           </h1>
           <p className="text-slate-400 text-sm leading-relaxed">
             Match a candidate&apos;s actual repository source code, manifests, and documentation against target job description requirements.
@@ -90,10 +89,10 @@ export default function JobMatchPage() {
             <ProfileCard user={user} />
 
             {/* Extracted Job Requirements Breakdown */}
-            <section className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <section className="glass-card rounded-2xl p-6 shadow-xl space-y-4">
               <h2 className="text-xl font-bold text-slate-100 pb-3 border-b border-slate-800 flex items-center justify-between">
                 <span>Extracted Job Requirements</span>
-                <span className="text-xs font-mono text-emerald-400">
+                <span className="text-xs font-mono text-blue-400">
                   {jobRequirements.keywords.length} Target Skills Identified
                 </span>
               </h2>
@@ -102,7 +101,7 @@ export default function JobMatchPage() {
                 {jobRequirements.keywords.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono font-semibold text-emerald-400"
+                    className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono font-semibold text-blue-400"
                   >
                     {skill}
                   </span>
@@ -115,7 +114,7 @@ export default function JobMatchPage() {
               <div className="border-b border-slate-800 pb-4">
                 <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
                   <span>Ranked Relevant Repositories</span>
-                  <span className="px-2.5 py-0.5 rounded-full text-xs bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono">
+                  <span className="px-2.5 py-0.5 rounded-full text-xs bg-blue-950/80 text-blue-400 border border-blue-800/80 font-mono">
                     {rankedProjects.length} Projects Analyzed
                   </span>
                 </h2>
@@ -139,7 +138,7 @@ export default function JobMatchPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500">
+      <footer className="border-t border-slate-800/80 py-6 text-center text-xs text-slate-500 font-mono">
         GitProof &copy; {new Date().getFullYear()} — Job Match & Deep Code Analysis
       </footer>
     </main>
