@@ -142,32 +142,31 @@ export default function Home() {
             {/* Proof of Work Section */}
             {analysis && analysis.cards.length > 0 && (
               <section className="space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
                   <div>
-                    <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+                    <h2 className="text-2xl font-extrabold text-slate-100 flex items-center gap-2.5">
                       <span>Verifiable Proof of Work</span>
-                      <span className="px-2.5 py-0.5 rounded-full text-xs bg-blue-950/80 text-blue-400 border border-blue-800/80 font-mono">
-                        {analysis.cards.length} Cards
+                      <span className="px-2.5 py-0.5 rounded-full text-xs bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 font-mono">
+                        {analysis.cards.length} Cards Verified
                       </span>
                     </h2>
                     <p className="text-xs text-slate-400 mt-1">
-                      Technical claims backed 100% by public GitHub activity and repository metadata
+                      Developer insights generated directly from real public GitHub data and backed by inspectable repository evidence
                     </p>
                   </div>
 
-                  {/* Top languages overview pills */}
+                  {/* Top Languages Breakdown Bar */}
                   {analysis.topLanguages.length > 0 && (
-                    <div className="flex flex-wrap items-center gap-1.5">
-                      {analysis.topLanguages.slice(0, 3).map((lang) => (
-                        <span
+                    <div className="flex flex-wrap items-center gap-2">
+                      {analysis.topLanguages.slice(0, 4).map((lang) => (
+                        <div
                           key={lang.language}
-                          className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300"
+                          className="px-3 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800/90 text-xs font-mono text-slate-300 flex items-center gap-2 shadow-sm"
                         >
-                          <span className="text-blue-400 font-semibold">
-                            {lang.language}
-                          </span>{" "}
-                          ({lang.percentage}%)
-                        </span>
+                          <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                          <span className="text-blue-400 font-bold">{lang.language}</span>
+                          <span className="text-slate-500 font-semibold">{lang.percentage}%</span>
+                        </div>
                       ))}
                     </div>
                   )}
