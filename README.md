@@ -10,7 +10,7 @@
 
 ---
 
-## 📌 Overview
+##  Overview
 
 **GitProof** is a developer intelligence platform that converts public GitHub evidence (commits, pull requests, issues, READMEs, manifest dependencies, and source code) into recruiter-friendly **Proof of Work Cards** and job-relevant project rankings.
 
@@ -18,20 +18,20 @@ Unlike generic resume parsers or LLM evaluators that hallucinate non-existent ex
 
 ---
 
-## ✨ Core Features
+## Core Features
 
-### 1. 🔍 Single Profile Analysis
+### 1.  Single Profile Analysis
 - Enter any public GitHub profile handle (`@username`) or URL.
 - Fetches public repositories, user-authored pull requests, commits, and issue contributions.
 - Generates **Verifiable Proof of Work Cards** categorized by *Tech Stack*, *Community Impact*, *Engineering Activity*, and *Portfolio Evidence*.
 - Translates complex technical commit messages into recruiter-friendly explanations with a single click to inspect raw source evidence.
 
-### 2. ⚔️ Side-by-Side Profile Comparison (`/compare`)
+### 2.  Side-by-Side Profile Comparison (`/compare`)
 - Concurrently fetches and analyzes two developer profiles side-by-side using `Promise.all`.
 - Generates a **Neutral Metric Comparison Report** (public repos, stargazers, followers, activity depth, primary languages, member since).
 - Strictly objective — zero subjective rankings or "leaderboard gaming" scores.
 
-### 3. 🎯 Job Match & Project Ranking Engine (`/job-match`)
+### 3.  Job Match & Project Ranking Engine (`/job-match`)
 - Paste any target Job Description (JD) text.
 - Parses JD into required/preferred skills, languages, frameworks, and domain keywords.
 - Performs lightweight candidate filtering, then conducts **Deep Inspection** on top candidate repositories:
@@ -46,13 +46,13 @@ Unlike generic resume parsers or LLM evaluators that hallucinate non-existent ex
   - **5%**: Activity / recency
 - Ranks candidate projects and outputs exact evidence snippets supporting each matched skill.
 
-### 4. 🔐 Email Authentication
+### 4.  Email Authentication
 - Clean, database-backed user authentication (Email & Password).
 - Hashed passwords saved using Node.js native SHA-256 crypto salting.
 
 ---
 
-## 📐 System Architecture & Data Flow
+##  System Architecture & Data Flow
 
 ```
 [ User Input / Client Browser ]
@@ -113,7 +113,7 @@ Unlike generic resume parsers or LLM evaluators that hallucinate non-existent ex
 
 ---
 
-## 🎨 Color-Coded Evidence System
+##  Color-Coded Evidence System
 
 GitProof uses a strict color-coded design language to maintain transparency:
 
@@ -126,7 +126,7 @@ GitProof uses a strict color-coded design language to maintain transparency:
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js `v18.0.0` or higher
@@ -155,7 +155,7 @@ GitProof uses a strict color-coded design language to maintain transparency:
 
 ---
 
-## 🧪 Building for Production
+##  Building for Production
 
 To create an optimized production build:
 
