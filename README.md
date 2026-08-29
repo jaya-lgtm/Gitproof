@@ -444,19 +444,6 @@ gitproof/
 
 ---
 
-## Core Modules
-
-| Module | Responsibility |
-|---|---|
-| `src/lib/parser.ts` | GitHub username extraction, URL parsing, input validation, invalid URL handling |
-| `src/lib/github.ts` | Profile/repository/event fetching, PR search, API error handling, rate-limit handling, GitHub data types |
-| `src/lib/github-content.ts` | Candidate repository selection, README/manifest/tree/source fetching, file & directory filtering |
-| `src/lib/analysis.ts` | Repository & language analysis, Proof of Work generation, evidence card generation, repository-level evidence summaries |
-| `src/lib/translator.ts` | Commit/PR/issue interpretation, recruiter-friendly descriptions, deterministic translation when no external LLM is available |
-| `src/lib/job-matcher.ts` | Job description parsing, skill extraction, repository matching, evidence scoring, matched/missing skill identification, match explanation, project ranking |
-| `src/context/AuthContext.tsx` | Authentication state, login/logout, saved proofs, session persistence |
-
----
 
 ## GitHub API Endpoints
 
@@ -485,20 +472,6 @@ gitproof/
 | Job Matching | Custom weighted matching engine |
 | Technical Translation | Rule-based / optional LLM |
 | Deployment Target | Suitable for Next.js hosting |
-
----
-
-## Environment Variables
-
-GitProof can work with public GitHub API access without requiring a GitHub OAuth application. An external LLM can optionally be configured for technical translation:
-
-```env
-OPENAI_API_KEY=your_api_key_here
-# or
-LLM_API_KEY=your_api_key_here
-```
-
-Secrets must remain server-side. Never commit API keys to the repository — `.env` and `.env.local` should be excluded from Git.
 
 ---
 
