@@ -37,6 +37,22 @@ body {
   background-size: 32px 32px;
 }
 
+/* Animations */
+@keyframes animateFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: animateFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 /* Dark Solid Card Surfaces */
 .card-surface {
   background-color: #11151f;
@@ -56,14 +72,18 @@ body {
   background-color: #c8ff4a;
   color: #080a0f;
   font-weight: 700;
-  box-shadow: 0 4px 20px -2px rgba(200, 255, 74, 0.25);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px -2px rgba(200, 255, 74, 0.2);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-lime:hover:not(:disabled) {
   background-color: #b8f238;
-  box-shadow: 0 6px 24px -2px rgba(200, 255, 74, 0.4);
+  box-shadow: 0 6px 24px -2px rgba(200, 255, 74, 0.35);
   transform: translateY(-1px);
+}
+
+.btn-lime:active:not(:disabled) {
+  transform: translateY(0) scale(0.98);
 }
 
 /* Secondary Button */
@@ -72,26 +92,13 @@ body {
   border: 1px solid #1f2432;
   color: #f4f4f5;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-secondary:hover:not(:disabled) {
   background-color: #1f2432;
   border-color: #2d3548;
-}
-
-/* Input Fields */
-.input-dark {
-  background-color: #0d1017;
-  border: 1px solid #1f2432;
-  color: #f4f4f5;
-  transition: all 0.2s ease;
-}
-
-.input-dark:focus {
-  outline: none;
-  border-color: #c8ff4a;
-  box-shadow: 0 0 0 2px rgba(200, 255, 74, 0.15);
+  transform: translateY(-1px);
 }
 
 /* Badges */
