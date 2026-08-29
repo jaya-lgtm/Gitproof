@@ -287,19 +287,19 @@ GitProof is implemented as a Next.js application with a client-side interface, s
                                     │
                                     ▼
                   ┌────────────────────────────────┐
-                  │          GitProof UI            │
-                  │                                  │
-                  │  Analyze │ Compare │ Job Match    │
-                  │  Saved Proofs │ Login             │
+                  │          GitProof UI           │
+                  │                                │
+                  │  Analyze │ Compare │ Job Match │
+                  │  Saved Proofs │ Login          │
                   └───────────────┬────────────────┘
                                   │
                                   ▼
                   ┌────────────────────────────────┐
-                  │       Next.js API Routes        │
-                  │                                  │
-                  │  /api/analyze                    │
-                  │  /api/compare                     │
-                  │  /api/job-match                   │
+                  │       Next.js API Routes       │
+                  │                                │
+                  │  /api/analyze                  │
+                  │  /api/compare                  │
+                  │  /api/job-match                │
                   └───────────────┬────────────────┘
                                   │
                     ┌─────────────┼─────────────┐
@@ -324,14 +324,14 @@ GitProof is implemented as a Next.js application with a client-side interface, s
                                  │
                                  ▼
                     ┌──────────────────────────┐
-                    │     GitHub Public API     │
-                    │                           │
-                    │ Users                     │
-                    │ Repositories              │
-                    │ Events                    │
-                    │ Pull Requests             │
-                    │ Repository Trees          │
-                    │ Repository Contents       │
+                    │     GitHub Public API    │
+                    │                          │
+                    │ Users                    │
+                    │ Repositories             │
+                    │ Events                   │
+                    │ Pull Requests            │
+                    │ Repository Trees         │
+                    │ Repository Contents      │
                     └──────────────────────────┘
 ```
 
