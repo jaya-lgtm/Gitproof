@@ -37,72 +37,72 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
     <div className="space-y-12 animate-fade-in">
       {/* Identity Panels Header */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-        <div className="p-4 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-1">
-          <span className="text-[10px] uppercase font-mono font-bold text-[#38BDF8] block">
+        <div className="p-4 rounded-xl bg-[#151719] border border-[#2A2D30] space-y-1">
+          <span className="text-[10px] uppercase font-mono font-bold text-[#F9732F] block">
             DEVELOPER A
           </span>
-          <h3 className="text-xl font-extrabold text-zinc-100">
+          <h3 className="text-xl font-extrabold text-[#F5F2ED]">
             {profile1.user.name || profile1.user.login}
           </h3>
-          <span className="text-xs font-mono text-zinc-400">@{profile1.user.login}</span>
+          <span className="text-xs font-mono text-[#9CA3AF]">@{profile1.user.login}</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#0D1017] border border-[#1F2432] space-y-1">
-          <span className="text-[10px] uppercase font-mono font-bold text-[#A78BFA] block">
+        <div className="p-4 rounded-xl bg-[#151719] border border-[#2A2D30] space-y-1">
+          <span className="text-[10px] uppercase font-mono font-bold text-[#4ADE80] block">
             DEVELOPER B
           </span>
-          <h3 className="text-xl font-extrabold text-zinc-100">
+          <h3 className="text-xl font-extrabold text-[#F5F2ED]">
             {profile2.user.name || profile2.user.login}
           </h3>
-          <span className="text-xs font-mono text-zinc-400">@{profile2.user.login}</span>
+          <span className="text-xs font-mono text-[#9CA3AF]">@{profile2.user.login}</span>
         </div>
       </div>
 
       {/* Neutral Side-by-Side Summary Table */}
       <section className="card-surface rounded-2xl p-6">
-        <div className="flex items-center justify-between pb-3 border-b border-[#1F2432] mb-4">
-          <h2 className="text-sm font-mono font-bold text-zinc-300 uppercase tracking-wider">
+        <div className="flex items-center justify-between pb-3 border-b border-[#2A2D30] mb-4">
+          <h2 className="text-sm font-mono font-bold text-[#9CA3AF] uppercase tracking-wider">
             OBJECTIVE METRIC COMPARISON REPORT
           </h2>
-          <span className="text-[10px] text-zinc-500 font-mono">Factual GitHub Data</span>
+          <span className="text-[10px] text-[#6B7280] font-mono">Factual GitHub Data</span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead>
-              <tr className="border-b border-[#1F2432] text-xs uppercase text-zinc-400 font-mono">
+              <tr className="border-b border-[#2A2D30] text-xs uppercase text-[#9CA3AF] font-mono">
                 <th className="py-3 px-4">Technical Signal</th>
-                <th className="py-3 px-4 text-[#38BDF8] font-bold">
+                <th className="py-3 px-4 text-[#F9732F] font-bold">
                   {profile1.user.login}
                 </th>
-                <th className="py-3 px-4 text-[#A78BFA] font-bold">
+                <th className="py-3 px-4 text-[#4ADE80] font-bold">
                   {profile2.user.login}
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#1F2432] font-mono text-zinc-200">
+            <tbody className="divide-y divide-[#2A2D30] font-mono text-[#F5F2ED]">
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">Public Repositories</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">Public Repositories</td>
                 <td className="py-3 px-4 font-semibold">{p1Repos}</td>
                 <td className="py-3 px-4 font-semibold">{p2Repos}</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">Total Stargazers Earned</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">Total Stargazers Earned</td>
                 <td className="py-3 px-4 font-semibold">{p1Stars} ★</td>
                 <td className="py-3 px-4 font-semibold">{p2Stars} ★</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">Followers</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">Followers</td>
                 <td className="py-3 px-4 font-semibold">{p1Followers}</td>
                 <td className="py-3 px-4 font-semibold">{p2Followers}</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">Recent Verified Evidence Items</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">Recent Verified Evidence Items</td>
                 <td className="py-3 px-4 font-semibold">{p1EvCount}</td>
                 <td className="py-3 px-4 font-semibold">{p2EvCount}</td>
               </tr>
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">Primary Language Focus</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">Primary Language Focus</td>
                 <td className="py-3 px-4 font-semibold">
                   {profile1.analysis.topLanguages[0]?.language || "N/A"}
                 </td>
@@ -111,7 +111,7 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
                 </td>
               </tr>
               <tr>
-                <td className="py-3 px-4 text-zinc-400 font-sans">GitHub Member Since</td>
+                <td className="py-3 px-4 text-[#9CA3AF] font-sans">GitHub Member Since</td>
                 <td className="py-3 px-4 font-semibold">
                   {new Date(profile1.user.created_at).getFullYear()}
                 </td>
@@ -126,19 +126,19 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
 
       {/* Profiles Side by Side */}
       <section className="space-y-6">
-        <h2 className="text-xl font-extrabold text-zinc-100 border-b border-[#1F2432] pb-3 font-mono">
+        <h2 className="text-xl font-extrabold text-[#F5F2ED] border-b border-[#2A2D30] pb-3 font-mono">
           DEVELOPER PROFILES
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-2">
-            <span className="text-xs font-mono font-bold uppercase text-[#38BDF8]">
+            <span className="text-xs font-mono font-bold uppercase text-[#F9732F]">
               DEVELOPER A
             </span>
             <ProfileCard user={profile1.user} />
           </div>
 
           <div className="space-y-2">
-            <span className="text-xs font-mono font-bold uppercase text-[#A78BFA]">
+            <span className="text-xs font-mono font-bold uppercase text-[#4ADE80]">
               DEVELOPER B
             </span>
             <ProfileCard user={profile2.user} />
@@ -148,14 +148,14 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
 
       {/* Proof of Work Cards Comparison */}
       <section className="space-y-6">
-        <h2 className="text-xl font-extrabold text-zinc-100 border-b border-[#1F2432] pb-3 font-mono">
+        <h2 className="text-xl font-extrabold text-[#F5F2ED] border-b border-[#2A2D30] pb-3 font-mono">
           PROOF OF WORK COMPARISON
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Profile 1 Cards */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold font-mono text-[#38BDF8]">
+            <h3 className="text-sm font-bold font-mono text-[#F9732F]">
               {profile1.user.login}&apos;S PROOF CARDS
             </h3>
             <div className="space-y-4">
@@ -167,7 +167,7 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
 
           {/* Profile 2 Cards */}
           <div className="space-y-4">
-            <h3 className="text-sm font-bold font-mono text-[#A78BFA]">
+            <h3 className="text-sm font-bold font-mono text-[#4ADE80]">
               {profile2.user.login}&apos;S PROOF CARDS
             </h3>
             <div className="space-y-4">
@@ -181,20 +181,20 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
 
       {/* Development Evidence Comparison */}
       <section className="space-y-6">
-        <h2 className="text-xl font-extrabold text-zinc-100 border-b border-[#1F2432] pb-3 font-mono">
+        <h2 className="text-xl font-extrabold text-[#F5F2ED] border-b border-[#2A2D30] pb-3 font-mono">
           VERIFIED DEVELOPMENT EVIDENCE
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-sm font-bold font-mono text-[#38BDF8] mb-4">
+            <h3 className="text-sm font-bold font-mono text-[#F9732F] mb-4">
               {profile1.user.login}&apos;S EVIDENCE
             </h3>
             <DevelopmentEvidenceSection evidences={profile1.evidences} />
           </div>
 
           <div>
-            <h3 className="text-sm font-bold font-mono text-[#A78BFA] mb-4">
+            <h3 className="text-sm font-bold font-mono text-[#4ADE80] mb-4">
               {profile2.user.login}&apos;S EVIDENCE
             </h3>
             <DevelopmentEvidenceSection evidences={profile2.evidences} />
@@ -204,20 +204,20 @@ export function CompareView({ profile1, profile2 }: CompareViewProps) {
 
       {/* Repositories Side by Side */}
       <section className="space-y-6">
-        <h2 className="text-xl font-extrabold text-zinc-100 border-b border-[#1F2432] pb-3 font-mono">
+        <h2 className="text-xl font-extrabold text-[#F5F2ED] border-b border-[#2A2D30] pb-3 font-mono">
           PUBLIC REPOSITORIES
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-sm font-bold font-mono text-[#38BDF8] mb-4">
+            <h3 className="text-sm font-bold font-mono text-[#F9732F] mb-4">
               {profile1.user.login}&apos;S REPOSITORIES
             </h3>
             <RepositoryList repos={profile1.repos} />
           </div>
 
           <div>
-            <h3 className="text-sm font-bold font-mono text-[#A78BFA] mb-4">
+            <h3 className="text-sm font-bold font-mono text-[#4ADE80] mb-4">
               {profile2.user.login}&apos;S REPOSITORIES
             </h3>
             <RepositoryList repos={profile2.repos} />

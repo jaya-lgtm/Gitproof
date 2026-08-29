@@ -46,16 +46,19 @@ export default function ComparePage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#080A0F] text-zinc-100 flex flex-col font-sans selection:bg-[#C8FF4A] selection:text-[#080A0F] relative overflow-hidden">
+    <main className="min-h-screen bg-[#0D0F10] text-[#F5F2ED] flex flex-col font-sans selection:bg-[#F9732F] selection:text-[#0D0F10] relative overflow-hidden">
       <Header />
 
       {/* Hero & Comparison Form */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-12 relative z-10">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-            Compare <span className="text-[#C8FF4A]">GitHub Developers</span> Side-by-Side
+          <span className="text-[11px] uppercase font-mono font-bold text-[#F9732F] tracking-widest bg-[#F9732F]/10 px-2.5 py-1 rounded border border-[#F9732F]/20">
+            OBJECTIVE METRIC EVALUATION
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F5F2ED]">
+            Compare <span className="text-[#F9732F]">GitHub Developers</span> Side-by-Side
           </h1>
-          <p className="text-zinc-400 text-sm leading-relaxed">
+          <p className="text-[#9CA3AF] text-sm leading-relaxed">
             Neutral, evidence-based comparison of public repositories, tech stacks, and development activity. Zero subjective rankings or AI fabrications.
           </p>
         </div>
@@ -80,7 +83,7 @@ export default function ComparePage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-[#1F2432] py-6 text-center text-xs text-zinc-500 font-mono">
+      <footer className="border-t border-[#2A2D30] py-6 text-center text-xs text-[#6B7280] font-mono">
         GitProof &copy; {new Date().getFullYear()} — Evidence-based developer portfolio comparison
       </footer>
     </main>

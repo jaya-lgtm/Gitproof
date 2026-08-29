@@ -22,21 +22,21 @@ export function Header() {
   ];
 
   return (
-    <header className="border-b border-[#1F2432] bg-[#080A0F]/90 backdrop-blur-md sticky top-0 z-50">
+    <header className="border-b border-[#2A2D30] bg-[#0D0F10]/95 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
         {/* Brand & Logo */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-[#C8FF4A] flex items-center justify-center font-black text-[#080A0F] text-sm shadow-md shadow-[#C8FF4A]/10 group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 rounded-lg bg-[#F9732F] flex items-center justify-center font-black text-[#0D0F10] text-sm shadow-md shadow-[#F9732F]/15 group-hover:scale-105 transition-transform">
               GP
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
-                <span className="font-extrabold text-base tracking-tight text-zinc-100 group-hover:text-[#C8FF4A] transition-colors">
+                <span className="font-extrabold text-base tracking-tight text-[#F5F2ED] group-hover:text-[#F9732F] transition-colors">
                   GitProof
                 </span>
-                <span className="text-[9px] uppercase tracking-wider font-mono font-bold text-[#C8FF4A] bg-[#C8FF4A]/10 px-1.5 py-0.5 rounded border border-[#C8FF4A]/20">
-                  AI DEVELOPER INTELLIGENCE
+                <span className="text-[9px] uppercase tracking-wider font-mono font-bold text-[#F9732F] bg-[#F9732F]/10 px-1.5 py-0.5 rounded border border-[#F9732F]/20">
+                  DEVELOPER INTELLIGENCE
                 </span>
               </div>
             </div>
@@ -53,16 +53,16 @@ export function Header() {
                 href={item.href}
                 className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all duration-150 flex items-center gap-1.5 relative ${
                   isActive
-                    ? "bg-[#11151F] text-[#C8FF4A] border border-[#C8FF4A]/30 shadow-sm"
-                    : "text-zinc-400 hover:text-zinc-100 hover:bg-[#11151F]/60 border border-transparent"
+                    ? "bg-[#181A1C] text-[#F9732F] border border-[#F9732F]/30 shadow-sm"
+                    : "text-[#9CA3AF] hover:text-[#F5F2ED] hover:bg-[#181A1C]/60 border border-transparent"
                 }`}
               >
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8FF4A]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F9732F]"></span>
                 )}
                 <span>{item.label}</span>
                 {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                  <span className="px-1.5 py-0.2 rounded text-[10px] bg-[#C8FF4A]/15 text-[#C8FF4A] border border-[#C8FF4A]/30 font-mono">
+                  <span className="px-1.5 py-0.2 rounded text-[10px] bg-[#F9732F]/15 text-[#F9732F] border border-[#F9732F]/30 font-mono">
                     {item.badgeCount}
                   </span>
                 )}
@@ -74,20 +74,20 @@ export function Header() {
         {/* User Auth Controls (Desktop) */}
         <div className="hidden md:flex items-center gap-3">
           {isAuthenticated && user ? (
-            <div className="flex items-center gap-3 pl-3 pr-2 py-1 rounded-lg bg-[#0D1017] border border-[#1F2432]">
+            <div className="flex items-center gap-3 pl-3 pr-2 py-1 rounded-lg bg-[#151719] border border-[#2A2D30]">
               <div className="flex items-center gap-2">
                 <img
                   src={user.avatar_url}
                   alt={user.login}
-                  className="w-6 h-6 rounded border border-[#C8FF4A]/40 object-cover"
+                  className="w-6 h-6 rounded border border-[#F9732F]/40 object-cover"
                 />
-                <span className="text-xs font-semibold text-zinc-200 font-mono">
+                <span className="text-xs font-semibold text-[#F5F2ED] font-mono">
                   @{user.login}
                 </span>
               </div>
               <button
                 onClick={logout}
-                className="text-xs text-zinc-400 hover:text-rose-400 transition-colors cursor-pointer font-mono pl-2 border-l border-[#1F2432]"
+                className="text-xs text-[#9CA3AF] hover:text-rose-400 transition-colors cursor-pointer font-mono pl-2 border-l border-[#2A2D30]"
                 title="Sign Out"
               >
                 Sign Out
@@ -96,7 +96,7 @@ export function Header() {
           ) : (
             <Link
               href="/login"
-              className="px-3.5 py-1.5 rounded-lg btn-lime text-xs font-bold transition-all cursor-pointer"
+              className="px-3.5 py-1.5 rounded-lg btn-orange text-xs font-bold transition-all cursor-pointer"
             >
               Sign In
             </Link>
@@ -106,7 +106,7 @@ export function Header() {
         {/* Mobile Hamburger Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg bg-[#0D1017] border border-[#1F2432] text-zinc-300 hover:text-zinc-100 transition-colors cursor-pointer"
+          className="md:hidden p-2 rounded-lg bg-[#151719] border border-[#2A2D30] text-[#9CA3AF] hover:text-[#F5F2ED] transition-colors cursor-pointer"
           aria-label="Toggle Navigation Menu"
         >
           {mobileMenuOpen ? (
@@ -119,7 +119,7 @@ export function Header() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#1F2432] bg-[#080A0F] px-4 py-3 space-y-3 shadow-2xl">
+        <div className="md:hidden border-t border-[#2A2D30] bg-[#0D0F10] px-4 py-3 space-y-3 shadow-2xl">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -130,16 +130,16 @@ export function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`px-3 py-2 rounded-lg text-xs font-semibold transition-all flex items-center justify-between ${
                     isActive
-                      ? "bg-[#11151F] text-[#C8FF4A] border border-[#C8FF4A]/30"
-                      : "text-zinc-400 hover:text-zinc-100 hover:bg-[#0D1017]"
+                      ? "bg-[#181A1C] text-[#F9732F] border border-[#F9732F]/30"
+                      : "text-[#9CA3AF] hover:text-[#F5F2ED] hover:bg-[#151719]"
                   }`}
                 >
                   <span className="flex items-center gap-2">
-                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#C8FF4A]"></span>}
+                    {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#F9732F]"></span>}
                     <span>{item.label}</span>
                   </span>
                   {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                    <span className="px-2 py-0.5 rounded text-[10px] bg-[#C8FF4A]/15 text-[#C8FF4A] font-mono">
+                    <span className="px-2 py-0.5 rounded text-[10px] bg-[#F9732F]/15 text-[#F9732F] font-mono">
                       {item.badgeCount}
                     </span>
                   )}
@@ -148,16 +148,16 @@ export function Header() {
             })}
           </nav>
 
-          <div className="pt-2 border-t border-[#1F2432]">
+          <div className="pt-2 border-t border-[#2A2D30]">
             {isAuthenticated && user ? (
               <div className="flex items-center justify-between w-full">
                 <div className="flex items-center gap-2">
                   <img
                     src={user.avatar_url}
                     alt={user.login}
-                    className="w-7 h-7 rounded border border-[#C8FF4A]/40 object-cover"
+                    className="w-7 h-7 rounded border border-[#F9732F]/40 object-cover"
                   />
-                  <span className="text-xs font-semibold text-zinc-200 font-mono">
+                  <span className="text-xs font-semibold text-[#F5F2ED] font-mono">
                     @{user.login}
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export function Header() {
               <Link
                 href="/login"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2 rounded-lg btn-lime text-xs font-bold text-center block"
+                className="w-full py-2 rounded-lg btn-orange text-xs font-bold text-center block"
               >
                 Sign In
               </Link>

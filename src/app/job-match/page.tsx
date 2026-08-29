@@ -51,19 +51,19 @@ export default function JobMatchPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#080A0F] text-zinc-100 flex flex-col font-sans selection:bg-[#C8FF4A] selection:text-[#080A0F] relative overflow-hidden">
+    <main className="min-h-screen bg-[#0D0F10] text-[#F5F2ED] flex flex-col font-sans selection:bg-[#F9732F] selection:text-[#0D0F10] relative overflow-hidden">
       <Header />
 
       {/* Hero & Content */}
       <div className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-12 space-y-10 relative z-10">
         <div className="text-center space-y-3 max-w-3xl mx-auto">
-          <span className="text-[11px] uppercase font-mono font-bold text-[#C8FF4A] tracking-widest bg-[#C8FF4A]/10 px-2.5 py-1 rounded border border-[#C8FF4A]/20">
-            AI RELEVANCE EVALUATION
+          <span className="text-[11px] uppercase font-mono font-bold text-[#F9732F] tracking-widest bg-[#F9732F]/10 px-2.5 py-1 rounded border border-[#F9732F]/20">
+            RELEVANCE EVALUATION
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-100">
-            Job Match & <span className="text-[#C8FF4A]">Project Relevance Ranking</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-[#F5F2ED]">
+            Job Match & <span className="text-[#F9732F]">Project Relevance Ranking</span>
           </h1>
-          <p className="text-zinc-400 text-sm leading-relaxed font-sans">
+          <p className="text-[#9CA3AF] text-sm leading-relaxed font-sans">
             Match a candidate&apos;s actual repository source code, manifests, and documentation against target job description requirements.
           </p>
         </div>
@@ -71,15 +71,15 @@ export default function JobMatchPage() {
         {/* Top Matching Engine Pipeline Diagram */}
         <div className="p-4 rounded-xl card-surface max-w-3xl mx-auto font-mono text-xs text-center space-y-2">
           <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="px-3 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-zinc-300">
+            <span className="px-3 py-1 rounded bg-[#151719] border border-[#2A2D30] text-[#9CA3AF]">
               Developer GitHub Profile + Job Description
             </span>
-            <span className="text-[#C8FF4A]">↓</span>
-            <span className="px-3 py-1 rounded bg-[#C8FF4A]/10 border border-[#C8FF4A]/30 text-[#C8FF4A] font-bold">
+            <span className="text-[#F9732F]">↓</span>
+            <span className="px-3 py-1 rounded bg-[#F9732F]/10 border border-[#F9732F]/30 text-[#F9732F] font-bold">
               MATCH ENGINE
             </span>
-            <span className="text-[#C8FF4A]">↓</span>
-            <span className="px-3 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-[#38BDF8] font-bold">
+            <span className="text-[#F9732F]">↓</span>
+            <span className="px-3 py-1 rounded bg-[#151719] border border-[#2A2D30] text-[#F5F2ED] font-bold">
               Ranked Relevant Projects
             </span>
           </div>
@@ -104,9 +104,9 @@ export default function JobMatchPage() {
 
             {/* Extracted Job Requirements Breakdown */}
             <section className="card-surface rounded-2xl p-6 shadow-xl space-y-4">
-              <h2 className="text-sm font-mono font-bold text-zinc-100 uppercase tracking-wider pb-3 border-b border-[#1F2432] flex items-center justify-between">
+              <h2 className="text-sm font-mono font-bold text-[#F5F2ED] uppercase tracking-wider pb-3 border-b border-[#2A2D30] flex items-center justify-between">
                 <span>EXTRACTED JOB REQUIREMENTS</span>
-                <span className="text-xs font-mono text-[#38BDF8]">
+                <span className="text-xs font-mono text-[#F9732F]">
                   {jobRequirements.keywords.length} Target Skills Identified
                 </span>
               </h2>
@@ -115,7 +115,7 @@ export default function JobMatchPage() {
                 {jobRequirements.keywords.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1 rounded bg-[#0D1017] border border-[#1F2432] text-xs font-mono font-semibold text-[#38BDF8]"
+                    className="px-3 py-1 rounded bg-[#151719] border border-[#2A2D30] text-xs font-mono font-semibold text-[#F9732F]"
                   >
                     {skill}
                   </span>
@@ -125,14 +125,14 @@ export default function JobMatchPage() {
 
             {/* Ranked Projects Section */}
             <section className="space-y-6">
-              <div className="border-b border-[#1F2432] pb-4">
-                <h2 className="text-2xl font-extrabold text-zinc-100 flex items-center gap-2">
+              <div className="border-b border-[#2A2D30] pb-4">
+                <h2 className="text-2xl font-extrabold text-[#F5F2ED] flex items-center gap-2">
                   <span>Ranked Relevant Repositories</span>
-                  <span className="px-2.5 py-0.5 rounded text-xs badge-lime font-mono">
+                  <span className="px-2.5 py-0.5 rounded text-xs badge-orange font-mono">
                     {rankedProjects.length} Projects Analyzed
                   </span>
                 </h2>
-                <p className="text-xs text-zinc-400 mt-1 font-sans">
+                <p className="text-xs text-[#9CA3AF] mt-1 font-sans">
                   Ranked by implementation code evidence (35%), manifests (25%), language (20%), README (15%), and activity (5%)
                 </p>
               </div>
@@ -152,7 +152,7 @@ export default function JobMatchPage() {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-[#1F2432] py-6 text-center text-xs text-zinc-500 font-mono">
+      <footer className="border-t border-[#2A2D30] py-6 text-center text-xs text-[#6B7280] font-mono">
         GitProof &copy; {new Date().getFullYear()} — Job Match & Deep Code Analysis
       </footer>
     </main>
