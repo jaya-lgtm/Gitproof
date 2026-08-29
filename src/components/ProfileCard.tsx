@@ -1,14 +1,10 @@
 import { GitHubUser } from "@/lib/github";
-import { useAuth } from "@/context/AuthContext";
 
 interface ProfileCardProps {
   user: GitHubUser;
 }
 
 export function ProfileCard({ user }: ProfileCardProps) {
-  const { saveProof, isProofSaved } = useAuth();
-  const saved = isProofSaved(user.login);
-
   const joinedDate = new Date(user.created_at).toLocaleDateString("en-US", {
     month: "short",
     year: "numeric",
@@ -56,24 +52,13 @@ export function ProfileCard({ user }: ProfileCardProps) {
                 </a>
               </div>
 
-              {/* Action Buttons */}
+              {/* View on GitHub CTA */}
               <div className="flex items-center justify-center gap-2.5 shrink-0">
-                <button
-                  onClick={() => saveProof(user)}
-                  disabled={saved}
-                  className={`px-3.5 py-2 text-xs font-bold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-                    saved
-                      ? "badge-emerald cursor-default font-mono"
-                      : "btn-orange shadow-sm"
-                  }`}
-                >
-                  <span>{saved ? "✓ Saved Proof" : "+ Save Proof"}</span>
-                </button>
                 <a
                   href={user.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-3.5 py-2 text-xs font-semibold text-[#F5F2ED] btn-secondary rounded-lg"
+                  className="inline-flex items-center justify-center px-4 py-2 text-xs font-semibold text-[#F5F2ED] btn-secondary rounded-lg"
                 >
                   View on GitHub
                 </a>

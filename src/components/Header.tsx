@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export function Header() {
-  const { user, isAuthenticated, logout, savedProofs } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -14,11 +14,6 @@ export function Header() {
     { label: "Analyze", href: "/" },
     { label: "Compare", href: "/compare" },
     { label: "Job Match", href: "/job-match" },
-    {
-      label: "Saved Proofs",
-      href: "/saved",
-      badgeCount: savedProofs.length,
-    },
   ];
 
   return (
@@ -61,11 +56,6 @@ export function Header() {
                   <span className="w-1.5 h-1.5 rounded-full bg-[#F9732F]"></span>
                 )}
                 <span>{item.label}</span>
-                {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                  <span className="px-1.5 py-0.2 rounded text-[10px] bg-[#F9732F]/15 text-[#F9732F] border border-[#F9732F]/30 font-mono">
-                    {item.badgeCount}
-                  </span>
-                )}
               </Link>
             );
           })}
@@ -138,11 +128,6 @@ export function Header() {
                     {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#F9732F]"></span>}
                     <span>{item.label}</span>
                   </span>
-                  {item.badgeCount !== undefined && item.badgeCount > 0 && (
-                    <span className="px-2 py-0.5 rounded text-[10px] bg-[#F9732F]/15 text-[#F9732F] font-mono">
-                      {item.badgeCount}
-                    </span>
-                  )}
                 </Link>
               );
             })}
