@@ -471,7 +471,10 @@ gitproof/
 | Repository Analysis | GitHub Repository Contents API |
 | Job Matching | Custom weighted matching engine |
 | Technical Translation | Rule-based / optional LLM |
+| Code Review | `code-review-3` from SkillPatch |
 | Deployment Target | Suitable for Next.js hosting |
+
+| Code Review | `code-review-3` from SkillPatch for code quality, specification verification, and grounded evidence auditing |
 
 ---
 
